@@ -28,11 +28,13 @@
   --font-sans: "PP Neue Montreal", sans-serif;
   /* surfaces */
   --color-surface-page: #ffffff;
+
   --color-surface-action: #00bbfd;
   --color-surface-action-hover: #33caff;
+  --color-surface-action-hover-subtle: #d9f5ff;
   /* text/icon */
-  --color-text-heading: #323639;
-  --color-text-body: #54595f;
+  --color-text-heading: #2e3033;
+  --color-text-body: #4a4f54;
   --color-text-muted: #798286;
   /* borders */
   --color-border-default: #e4e6e7;

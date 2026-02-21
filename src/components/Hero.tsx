@@ -3,19 +3,46 @@ import { SceneCanvas } from "./hero-scene/scene/SceneCanvas";
 
 export default function Hero() {
   return (
-    <section className="border-border-default mt-14 border-b">
-      <div className="mx-auto flex h-[620px] flex-col justify-between px-8 pt-3 pb-6 font-medium">
+    <section className="border-border-default relative mt-14 h-[620px] border-b">
+      <div className="absolute inset-0">
         <SceneCanvas />
-        <div className="flex items-end justify-between">
+        <div className="absolute inset-0 bg-black/65" aria-hidden />
+      </div>
+      <div className="relative z-10 mx-auto flex h-full flex-col justify-between px-8 pt-6 pb-9 font-medium">
+        <div className="flex justify-end">
+          <img src="/01.svg" alt="" className="h-[100px] opacity-15" />
+        </div>
+        <div className="relative z-20 flex items-end justify-between text-white">
           <SplitFadeUp
             as="h1"
-            className="max-w-[940px] text-[56px] leading-[1.05em] tracking-[-0.01em]"
+            className="max-w-[1030px] text-[60px] leading-[1.05em] tracking-[-0.01em]"
             trigger="inView"
           >
             Design Engineer building geospatial tools and ML Ops platforms at
             Satlantis. Graduating from UFlorida spring 27’.
           </SplitFadeUp>
-          <img src="/01.svg" alt="" className="h-[176px]" />
+          <div className="text-text-heading flex gap-3">
+            <a
+              href="https://www.linkedin.com/in/cole-morgan-/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:bg-surface-action-hover-subtle border-border-default block rounded-full border bg-white p-2 shadow-md transition-colors duration-200"
+            >
+              <img
+                src="/icons/linkedin.png"
+                alt="LinkedIn"
+                className="size-5"
+              />
+            </a>
+            <a
+              href="https://github.com/colemmorgan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:bg-surface-action-hover-subtle border-border-default block rounded-full border bg-white p-2 shadow-md transition-colors duration-200"
+            >
+              <img src="/icons/github.png" alt="GitHub" className="size-5" />
+            </a>
+          </div>
         </div>
       </div>
     </section>

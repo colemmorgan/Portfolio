@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -87,8 +88,8 @@ export default function Work({ canAnimate = false }: WorkProps) {
 
   return (
     <section className="border-border-default border-b">
-      <div className="mx-auto px-8 pt-12 pb-6 font-medium">
-        <h2 className="text-text-muted mb-2 tracking-wider">02 WORK</h2>
+      <div className="mx-auto px-8 pt-18 pb-6 font-medium">
+        <h2 className="mb-3 text-4xl">02 Work</h2>
         <div ref={containerRef}>
           {projects.map((project, index) => (
             <div
@@ -104,32 +105,41 @@ export default function Work({ canAnimate = false }: WorkProps) {
                 />
               </figure>
               <div className="col-span-6 flex flex-col justify-between">
-                <div className="group relative w-fit">
-                  <p className="relative z-10 flex cursor-pointer items-center gap-1 text-xl font-medium">
-                    {project.title} <ArrowUpRight strokeWidth={1.5} />
-                  </p>
-                  <div className="absolute top-0 right-0 bottom-0 -left-1.5 flex flex-col justify-between border border-transparent transition-all duration-200 group-hover:border-black/7 group-hover:bg-black/3">
-                    <div className="flex justify-between">
-                      <div className="">
-                        <span className="bg-text-heading block h-px w-0 -translate-px transition-all duration-200 group-hover:w-2"></span>
-                        <span className="bg-text-heading block h-0 w-px -translate-px transition-all duration-200 group-hover:h-[7px]"></span>
+                <div className="">
+                  <div className="group relative w-fit">
+                    <p className="relative z-10 flex cursor-pointer items-center gap-1 text-xl font-medium">
+                      {project.title}{" "}
+                      <HugeiconsIcon
+                        icon={ArrowUpRight01Icon}
+                        strokeWidth={1.5}
+                      />
+                    </p>
+                    <div className="absolute top-0 right-0 bottom-0 -left-1.5 flex flex-col justify-between border border-transparent transition-all duration-200 group-hover:border-black/7 group-hover:bg-black/3">
+                      <div className="flex justify-between">
+                        <div className="">
+                          <span className="bg-text-heading block h-px w-0 -translate-px transition-all duration-200 group-hover:w-2"></span>
+                          <span className="bg-text-heading block h-0 w-px -translate-px transition-all duration-200 group-hover:h-[7px]"></span>
+                        </div>
+                        <div className="flex">
+                          <span className="bg-text-heading block h-px w-0 translate-x-px -translate-y-px transition-all duration-200 group-hover:w-2"></span>
+                          <span className="bg-text-heading block h-0 w-px translate-x-px -translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
+                        </div>
                       </div>
-                      <div className="flex">
-                        <span className="bg-text-heading block h-px w-0 translate-x-px -translate-y-px transition-all duration-200 group-hover:w-2"></span>
-                        <span className="bg-text-heading block h-0 w-px translate-x-px -translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
-                      </div>
-                    </div>
-                    <div className="flex justify-between">
-                      <div className="">
-                        <span className="bg-text-heading block h-0 w-px -translate-x-px translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
-                        <span className="bg-text-heading block h-px w-0 -translate-x-px translate-y-px transition-all duration-200 group-hover:w-2"></span>
-                      </div>
-                      <div className="flex flex-col items-end">
-                        <span className="bg-text-heading block h-0 w-px translate-px transition-all duration-200 group-hover:h-[7px]"></span>
-                        <span className="bg-text-heading block h-px w-0 translate-px transition-all duration-200 group-hover:w-2"></span>
+                      <div className="flex justify-between">
+                        <div className="">
+                          <span className="bg-text-heading block h-0 w-px -translate-x-px translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
+                          <span className="bg-text-heading block h-px w-0 -translate-x-px translate-y-px transition-all duration-200 group-hover:w-2"></span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <span className="bg-text-heading block h-0 w-px translate-px transition-all duration-200 group-hover:h-[7px]"></span>
+                          <span className="bg-text-heading block h-px w-0 translate-px transition-all duration-200 group-hover:w-2"></span>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <p className="text-text-muted mt-1 text-sm underline">
+                    View Case Study
+                  </p>
                 </div>
                 <div>
                   <div className="grid grid-cols-6 gap-8">
