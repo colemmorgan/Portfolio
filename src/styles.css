@@ -27,20 +27,32 @@
 @theme {
   --font-sans: "PP Neue Montreal", sans-serif;
   /* surfaces */
-  --color-surface-page: "#ffffff";
-  --color-surface-primary: "#00BBFD";
+  --color-surface-page: #ffffff;
+  --color-surface-action: #00bbfd;
+  --color-surface-action-hover: #33caff;
   /* text/icon */
-  --color-text-heading: "#303336";
-  --color-text-muted: "#798286";
+  --color-text-heading: #323639;
+  --color-text-body: #54595f;
+  --color-text-muted: #798286;
   /* borders */
-  --color-border-default: "#E4E6E7";
+  --color-border-default: #e4e6e7;
 }
 
-body {
-  background-color: var(--color-surface-page);
-  color: var(--color-text-heading);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.005em;
+@layer base {
+  body {
+    background-color: var(--color-surface-page);
+    color: var(--color-text-heading);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.005em;
+    min-height: 100vh;
+  }
+}
+
+.cta {
+  box-shadow:
+    0 -2px 4px 0 rgba(0, 0, 0, 0.05) inset,
+    0 0 4px 0 #00bbfd inset,
+    0 4px 2px 0 rgba(255, 255, 255, 0.15) inset;
 }

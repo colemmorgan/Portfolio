@@ -2,7 +2,7 @@ import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 
-import appCss from "../styles.css?url";
+import "../styles.css";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -23,10 +23,6 @@ export const Route = createRootRoute({
         rel: "icon",
         type: "image/png",
         href: "/favicon.png",
-      },
-      {
-        rel: "stylesheet",
-        href: appCss,
       },
     ],
   }),
