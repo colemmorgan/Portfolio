@@ -88,8 +88,8 @@ export default function Work({ canAnimate = false }: WorkProps) {
 
   return (
     <section className="border-border-default border-b">
-      <div className="mx-auto px-8 pt-18 pb-6 font-medium">
-        <h2 className="mb-3 text-4xl">02 Work</h2>
+      <div className="mx-auto px-8 pt-18 pb-12">
+        <h2 className="mb-3 text-4xl font-medium">02 Work</h2>
         <div ref={containerRef}>
           {projects.map((project, index) => (
             <div
@@ -107,12 +107,8 @@ export default function Work({ canAnimate = false }: WorkProps) {
               <div className="col-span-6 flex flex-col justify-between">
                 <div className="">
                   <div className="group relative w-fit">
-                    <p className="relative z-10 flex cursor-pointer items-center gap-1 text-xl font-medium">
-                      {project.title}{" "}
-                      <HugeiconsIcon
-                        icon={ArrowUpRight01Icon}
-                        strokeWidth={1.5}
-                      />
+                    <p className="relative z-10 flex cursor-pointer items-center gap-1.5 text-xl font-medium">
+                      {project.title} <span className="pr-1.5">↗</span>
                     </p>
                     <div className="absolute top-0 right-0 bottom-0 -left-1.5 flex flex-col justify-between border border-transparent transition-all duration-200 group-hover:border-black/7 group-hover:bg-black/3">
                       <div className="flex justify-between">

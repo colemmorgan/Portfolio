@@ -26,21 +26,25 @@ export default function Hero() {
               href="https://www.linkedin.com/in/cole-morgan-/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:bg-surface-action-hover-subtle border-border-default block rounded-full border bg-white p-2 shadow-md transition-colors duration-200"
+              className="group hover:bg-surface-action-hover-subtle border-border-default flex size-9 items-center justify-center rounded-full border bg-white shadow-md transition-colors duration-200"
             >
               <img
                 src="/icons/linkedin.png"
                 alt="LinkedIn"
-                className="size-5"
+                className="size-5 transition-all ease-out group-hover:scale-105"
               />
             </a>
             <a
               href="https://github.com/colemmorgan"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:bg-surface-action-hover-subtle border-border-default block rounded-full border bg-white p-2 shadow-md transition-colors duration-200"
+              className="hover:bg-surface-action-hover-subtle group border-border-default flex size-9 items-center justify-center rounded-full border bg-white shadow-md transition-colors duration-200"
             >
-              <img src="/icons/github.png" alt="GitHub" className="size-5" />
+              <img
+                src="/icons/github.png"
+                alt="GitHub"
+                className="size-5 transition-all ease-out group-hover:scale-105"
+              />
             </a>
           </div>
         </div>

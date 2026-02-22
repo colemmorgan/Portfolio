@@ -4,7 +4,7 @@ import SplitType from "split-type";
 
 // AI slop animation but it works :)
 
-type ElementType = "h1" | "h2" | "p" | "div";
+type ElementType = "h1" | "h2" | "h3" | "p" | "div";
 
 interface SplitFadeUpProps {
   children: ReactNode;
