@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Copy } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { Link } from "@tanstack/react-router";
 
 const EMAIL = "colemmorgann@gmail.com";
 
@@ -14,10 +15,15 @@ export default function Nav() {
   };
 
   return (
-    <nav className="border-border-default bg-surface-page fixed top-0 right-0 left-0 z-50 border-b">
+    <nav
+      className="border-border-default bg-surface-page fixed top-0 right-0 left-0 z-50 border-b"
+      style={{ viewTransitionName: "main-nav" }}
+    >
       <div className="mx-auto flex items-center justify-between px-8 py-2.5 font-medium">
         <figure className="items-baseline gap-2">
-          <p className="leading-5">Cole Morgan</p>
+          <Link to="/" className="leading-5 hover:opacity-80">
+            Cole Morgan
+          </Link>
           <button
             type="button"
             onClick={handleCopyEmail}
@@ -56,8 +62,24 @@ export default function Nav() {
         </figure>
 
         <ul className="flex items-center gap-3 leading-5">
-          <li className="cursor-pointer px-2 py-2">Home</li>
-          <li className="text-text-muted cursor-pointer px-2 py-2">Work</li>
+          <li>
+            <Link
+              to="/"
+              className="px-2 py-2 hover:text-text-heading"
+              activeProps={{ className: "text-text-heading" }}
+              inactiveProps={{ className: "text-text-muted" }}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/"
+              className="text-text-muted px-2 py-2 hover:text-text-heading"
+            >
+              Work
+            </Link>
+          </li>
           <li className="text-text-muted cursor-pointer px-2 py-2">About</li>
           <li>
             <a className="cta bg-surface-action group relative block cursor-pointer overflow-hidden rounded-full px-4 py-2">

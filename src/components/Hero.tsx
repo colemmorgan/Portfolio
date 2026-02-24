@@ -18,7 +18,7 @@ export default function Hero() {
             className="max-w-[1030px] text-[60px] leading-[1.05em] tracking-[-0.01em]"
             trigger="inView"
           >
-            Design Engineer building geospatial tools and ML Ops platforms at
+            Design Engineer building geospatial tools and ML platforms at
             Satlantis. Graduating from UFlorida spring 27’.
           </SplitFadeUp>
           <div className="text-text-heading flex gap-3">

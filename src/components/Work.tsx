@@ -1,54 +1,12 @@
 import { useRef, useEffect } from "react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "@tanstack/react-router";
+import { projects } from "@/data/projects";
+
+export type { Project } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
-
-export interface Project {
-  image: string;
-  title: string;
-  description: string;
-  techStack: string;
-  users: string;
-}
-
-const projects: Project[] = [
-  {
-    image: "/project-mockups/mockup-fragments.png",
-    title: "Fragments",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
-    users: "100,000",
-  },
-  {
-    image: "/project-mockups/sat4.png",
-    title: "Satlantis LLC",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
-    users: "100,000",
-  },
-
-  {
-    image: "/project-mockups/spcb.png",
-    title: "Society of PC Building",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
-    users: "100,000",
-  },
-  {
-    image: "/project-mockups/fionn.png",
-    title: "Coaching Personal Website",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
-    users: "100,000",
-  },
-];
 
 interface WorkProps {
   canAnimate?: boolean;
@@ -91,13 +49,17 @@ export default function Work({ canAnimate = false }: WorkProps) {
       <div className="mx-auto px-8 pt-18 pb-12">
         <h2 className="mb-3 text-4xl font-medium">02 Work</h2>
         <div ref={containerRef}>
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <div
-              key={index}
+              key={project.slug}
+              id={project.slug}
               data-project-item
-              className={`border-border-default grid grid-cols-12 gap-8 border-b border-dashed py-6 last:border-b-0 ${canAnimate ? "opacity-0" : ""}`}
+              className={`border-border-default grid grid-cols-12 gap-8 border-b border-dashed py-6 last:border-b-0 scroll-mt-14 ${canAnimate ? "opacity-0" : ""}`}
             >
-              <figure className="border-border-default col-span-6 aspect-3/2 overflow-hidden border">
+              <figure
+                className="border-border-default col-span-6 aspect-3/2 overflow-hidden border"
+                style={{ viewTransitionName: `project-${project.slug}` }}
+              >
                 <img
                   src={project.image}
                   alt=""
@@ -106,7 +68,11 @@ export default function Work({ canAnimate = false }: WorkProps) {
               </figure>
               <div className="col-span-6 flex flex-col justify-between">
                 <div className="">
-                  <div className="group relative w-fit">
+                  <Link
+                    to="/work/$projectSlug"
+                    params={{ projectSlug: project.slug }}
+                    className="group relative inline-block w-fit"
+                  >
                     <p className="relative z-10 flex cursor-pointer items-center gap-1.5 text-xl font-medium">
                       {project.title} <span className="pr-1.5">↗</span>
                     </p>
@@ -132,10 +98,14 @@ export default function Work({ canAnimate = false }: WorkProps) {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <p className="text-text-muted mt-1 text-sm underline">
+                  </Link>
+                  <Link
+                    to="/work/$projectSlug"
+                    params={{ projectSlug: project.slug }}
+                    className="text-text-muted mt-1 inline-block text-sm underline hover:text-text-heading transition-colors"
+                  >
                     View Case Study
-                  </p>
+                  </Link>
                 </div>
                 <div>
                   <div className="grid grid-cols-6 gap-8">
