@@ -11,8 +11,10 @@ function App() {
   return (
     <>
       <Hero />
-      <Work canAnimate />
-      <Competencies canAnimate />
+      <div className="bg-surface-page relative z-10">
+        <Work canAnimate />
+        <Competencies canAnimate />
+      </div>
       <Footer />
     </>
   );

@@ -20,14 +20,14 @@ export default function Nav() {
       style={{ viewTransitionName: "main-nav" }}
     >
       <div className="mx-auto flex items-center justify-between px-8 py-2.5 font-medium">
-        <figure className="items-baseline gap-2">
-          <Link to="/" className="leading-5 hover:opacity-80">
+        <figure className="flex h-9 flex-col">
+          <Link to="/" className="h-5 leading-5 hover:opacity-80">
             Cole Morgan
           </Link>
           <button
             type="button"
             onClick={handleCopyEmail}
-            className="text-text-muted hover:text-text-heading mt-0.5 flex w-fit cursor-pointer items-center gap-1 text-xs leading-3.5 font-normal tracking-wide transition-colors"
+            className="text-text-muted hover:text-text-heading mt-0.5 flex h-3.5 w-fit cursor-pointer items-center gap-1 text-xs leading-3.5 font-normal tracking-wide transition-colors"
           >
             <HugeiconsIcon icon={Copy} size={14} className="shrink-0" />
             <span className="relative inline-block h-[1em] align-bottom">
@@ -65,7 +65,7 @@ export default function Nav() {
           <li>
             <Link
               to="/"
-              className="px-2 py-2 hover:text-text-heading"
+              className="hover:text-text-heading px-2 py-2"
               activeProps={{ className: "text-text-heading" }}
               inactiveProps={{ className: "text-text-muted" }}
             >
@@ -75,7 +75,7 @@ export default function Nav() {
           <li>
             <Link
               to="/"
-              className="text-text-muted px-2 py-2 hover:text-text-heading"
+              className="text-text-muted hover:text-text-heading px-2 py-2"
             >
               Work
             </Link>

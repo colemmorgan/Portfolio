@@ -1,13 +1,12 @@
 import SplitFadeUp from "./SplitFadeUp";
-import { SceneCanvas } from "./hero-scene/scene/SceneCanvas";
 
 export default function Hero() {
   return (
-    <section className="border-border-default relative mt-14 h-[620px] border-b">
-      <div className="absolute inset-0">
-        <SceneCanvas />
-        <div className="absolute inset-0 bg-black/65" aria-hidden />
-      </div>
+    <section className="border-border-default relative mt-14 h-[620px] overflow-hidden border-b">
+      <div
+        className="pointer-events-none absolute inset-0 z-0 bg-black/60"
+        aria-hidden
+      />
       <div className="relative z-10 mx-auto flex h-full flex-col justify-between px-8 pt-6 pb-9 font-medium">
         <div className="flex justify-end">
           <img src="/01.svg" alt="" className="h-[100px] opacity-15" />
@@ -21,7 +20,7 @@ export default function Hero() {
             Design Engineer building geospatial tools and ML platforms at
             Satlantis. Graduating from UFlorida spring 27’.
           </SplitFadeUp>
-          <div className="text-text-heading flex gap-3">
+          <div className="flex gap-3">
             <a
               href="https://www.linkedin.com/in/cole-morgan-/"
               target="_blank"

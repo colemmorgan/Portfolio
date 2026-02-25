@@ -8,14 +8,18 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 
 import Nav from "@/components/Nav";
+import FixedWebGLBackground from "@/components/BackgroundScene";
 import "../styles.css";
 
 function RootLayout() {
   return (
-    <>
+    <div className="relative">
+      <FixedWebGLBackground />
       <Nav />
-      <Outlet />
-    </>
+      <main className="relative z-10">
+        <Outlet />
+      </main>
+    </div>
   );
 }
 
