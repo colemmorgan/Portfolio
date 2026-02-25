@@ -59,23 +59,26 @@
     0 4px 2px 0 rgba(255, 255, 255, 0.15) inset;
 }
 
-/* View Transitions: nav stays fixed (no flicker), project image with premium flat-top ease */
+/* View Transitions: shared element (image slides work → case study), nav stays fixed */
 @supports (view-transition-name: none) {
-  /* Navbar: same name on both views = shared element, no cross-fade/flicker */
+  ::view-transition-group(main-nav) {
+    z-index: 1;
+  }
   ::view-transition-old(main-nav),
   ::view-transition-new(main-nav) {
     animation: none;
     mix-blend-mode: normal;
   }
-
-  /* Project image: flatten top of curve for premium deceleration into rest */
+  ::view-transition-group(project-fragments),
+  ::view-transition-group(project-satlantis-llc),
+  ::view-transition-group(project-society-of-pc-building),
+  ::view-transition-group(project-coaching-personal-website) {
+    z-index: 0;
+  }
   ::view-transition-old(project-fragments),
   ::view-transition-old(project-satlantis-llc),
   ::view-transition-old(project-society-of-pc-building),
-  ::view-transition-old(project-coaching-personal-website) {
-    animation-duration: 0.45s;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
+  ::view-transition-old(project-coaching-personal-website),
   ::view-transition-new(project-fragments),
   ::view-transition-new(project-satlantis-llc),
   ::view-transition-new(project-society-of-pc-building),

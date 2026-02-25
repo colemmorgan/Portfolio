@@ -67,10 +67,11 @@ export default function Work({ canAnimate = false }: WorkProps) {
                 />
               </figure>
               <div className="col-span-6 flex flex-col justify-between">
-                <div className="">
-                  <Link
-                    to="/work/$projectSlug"
-                    params={{ projectSlug: project.slug }}
+                <div className="flex flex-col gap-1">
+                  <a
+                    href={project.liveUrl ?? "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="group relative inline-block w-fit"
                   >
                     <p className="relative z-10 flex cursor-pointer items-center gap-1.5 text-xl font-medium">
@@ -98,11 +99,11 @@ export default function Work({ canAnimate = false }: WorkProps) {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </a>
                   <Link
                     to="/work/$projectSlug"
                     params={{ projectSlug: project.slug }}
-                    className="text-text-muted mt-1 inline-block text-sm underline hover:text-text-heading transition-colors"
+                    className="text-text-muted inline-block text-sm underline hover:text-text-heading transition-colors"
                   >
                     View Case Study
                   </Link>
