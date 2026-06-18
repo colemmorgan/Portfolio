@@ -31,11 +31,35 @@ export default function Footer() {
     <motion.footer
       ref={footerRef}
       data-home-footer="true"
-      className="relative z-10 overflow-hidden rounded-2xl p-8 pt-20"
+      className="relative z-10 overflow-hidden p-8 pt-20"
       style={{ margin: footerMargin }}
     >
       {/* Subtle dark backdrop over global scene */}
       <div className="pointer-events-none absolute inset-0 z-5 bg-white/15" />
+
+      {/* Corner notches */}
+      <div className="pointer-events-none absolute inset-0 z-30 flex flex-col justify-between p-2" aria-hidden>
+        <div className="flex justify-between">
+          <div>
+            <span className="block h-px w-2 bg-white/50" />
+            <span className="block h-1.75 w-px bg-white/50" />
+          </div>
+          <div className="flex flex-col items-end">
+            <span className="block h-px w-2 bg-white/50" />
+            <span className="block h-1.75 w-px bg-white/50" />
+          </div>
+        </div>
+        <div className="flex justify-between">
+          <div>
+            <span className="block h-1.75 w-px bg-white/50" />
+            <span className="block h-px w-2 bg-white/50" />
+          </div>
+          <div className="flex flex-col items-end">
+            <span className="block h-1.75 w-px bg-white/50" />
+            <span className="block h-px w-2 bg-white/50" />
+          </div>
+        </div>
+      </div>
 
       <div className="relative z-20 mb-20 flex flex-col gap-4">
         <figure>

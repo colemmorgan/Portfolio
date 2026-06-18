@@ -55,10 +55,9 @@ export function Scene() {
     timeRef.current += 0.01
     largeMat.uniforms.time.value = timeRef.current
 
-    requestAnimationFrame(() => {
-      composerRef.current?.render()
-    })
-  })
+    // useFrame already runs on rAF; render directly to avoid nested frame loops.
+    composer.render()
+  }, 1)
 
   return (
     <>

@@ -36,11 +36,15 @@
   --color-text-heading: #2e3033;
   --color-text-body: #4a4f54;
   --color-text-muted: #798286;
+  --color-text-on-action: #2e3033;
   --color-text-dark-heading: #f1f2f3;
   --color-text-dark-body: #c9cccf;
   --color-text-dark-muted: #a9adb2;
   /* borders */
   --color-border-default: #e4e6e7;
+
+  --color-surface-dark: #131415;
+  --color-border-default-dark: #27292b;
 }
 
 @layer base {

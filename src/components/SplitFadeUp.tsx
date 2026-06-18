@@ -1,5 +1,6 @@
 import { motion, useInView } from "motion/react";
 import React, { useEffect, useRef, useState, type ReactNode } from "react";
+import { usePageReady } from "@/hooks/usePageReady";
 import SplitType from "split-type";
 
 // AI slop animation but it works :)
@@ -25,9 +26,10 @@ export default function SplitFadeUp({
   const measureRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { amount: 0.2, once: true });
   const [lines, setLines] = useState<string[]>([]);
+  const pageReady = usePageReady();
 
   const shouldAnimate =
-    trigger === "mount" || (trigger === "inView" && isInView);
+    pageReady && (trigger === "mount" || (trigger === "inView" && isInView));
 
   useEffect(() => {
     const el = measureRef.current;
@@ -96,7 +98,7 @@ export default function SplitFadeUp({
         transition={{
           duration: 0.7,
           ease: [0.33, 1, 0.68, 1],
-          delay: i * 0.09,
+          delay: 0.5 + i * 0.09,
         }}
         onAnimationComplete={
           i === lines.length - 1 ? handleComplete : undefined

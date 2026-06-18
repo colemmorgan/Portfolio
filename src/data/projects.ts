@@ -10,30 +10,30 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "fragments",
-    image: "/project-mockups/frag3.png",
-    title: "Fragments",
-    liveUrl: "#",
+    slug: "greatdient",
+    image: "/project-mockups/wizlite.png",
+    title: "RE Game Asset Viewer",
+    liveUrl: "https://stitch101.com",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
+      "Greatdient is tool to design professional and beautiful gradients through a simple and intuitive interface. Built on WebGL shaders to create natural and realistic gradients.",
     techStack: "React, Figma, OpenGL, PSQL, FastAPI",
     users: "100,000",
   },
-  {
-    slug: "satlantis-llc",
-    image: "/project-mockups/satlantis.png",
-    title: "Satlantis LLC",
-    liveUrl: "#",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
-    users: "100,000",
-  },
+  // {
+  //   slug: "satlantis-llc",
+  //   image: "/project-mockups/satlantis.png",
+  //   title: "Satlantis LLC",
+  //   liveUrl: "#",
+  //   description:
+  //     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
+  //   techStack: "React, Figma, OpenGL, PSQL, FastAPI",
+  //   users: "100,000",
+  // },
   {
     slug: "society-of-pc-building",
     image: "/project-mockups/spcb.png",
     title: "Society of PC Building",
-    liveUrl: "#",
+    liveUrl: "https://www.spcbatuf.org/",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
     techStack: "React, Figma, OpenGL, PSQL, FastAPI",
@@ -43,7 +43,7 @@ export const projects: Project[] = [
     slug: "coaching-personal-website",
     image: "/project-mockups/fionn.png",
     title: "Coaching Personal Website",
-    liveUrl: "#",
+    liveUrl: "https://www.fionn.pro/",
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
     techStack: "React, Figma, OpenGL, PSQL, FastAPI",
