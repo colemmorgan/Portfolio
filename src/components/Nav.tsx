@@ -1,13 +1,28 @@
 import { useEffect, useState } from "react";
-import { Copy } from "@hugeicons/core-free-icons";
+import { Copy, Menu01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Link, useRouterState } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "motion/react";
 
 const EMAIL = "colemmorgann@gmail.com";
+
+const sectionLinks = [
+  { name: "Home", href: "/#" },
+  { name: "Work", href: "/#work" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Competencies", href: "/#competencies" },
+];
+
+const contactLinks = [
+  { name: "Email", href: `mailto:${EMAIL}` },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/cole-morgan-/" },
+  { name: "GitHub", href: "https://github.com/colemmorgan" },
+];
 
 export default function Nav() {
   const [copied, setCopied] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   const handleCopyEmail = async () => {
@@ -15,6 +30,17 @@ export default function Nav() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -54,8 +80,12 @@ export default function Nav() {
       className={`${navBorder} ${navSurface} fixed top-0 right-0 left-0 z-50 border-b transition-colors`}
       style={{ viewTransitionName: "main-nav" }}
     >
-      <div className="mx-auto flex items-center justify-between px-8 py-2.5 font-medium">
-        <figure className="flex h-9 flex-col">
+      <div className="mx-auto flex items-center justify-between px-6 sm:px-8 py-2.5 font-medium">
+        <Link to="/" className="sm:hidden" aria-label="Cole Morgan">
+          <img src="/icons/circle.svg" alt="" className="size-9" />
+        </Link>
+
+        <figure className="hidden h-9 flex-col sm:flex">
           <Link to="/" className={`h-5 leading-5 hover:opacity-80 ${textHeading}`}>
             Cole Morgan
           </Link>
@@ -97,7 +127,7 @@ export default function Nav() {
         </figure>
 
         <ul className="flex items-center gap-3 leading-5">
-          <li>
+          <li className="hidden sm:block">
             <Link
               to="/"
               className={`px-2 py-2 ${isDarkMode ? "hover:text-text-dark-heading" : "hover:text-text-heading"}`}
@@ -107,23 +137,83 @@ export default function Nav() {
               Home
             </Link>
           </li>
-          <li>
-            <Link
-              to="/"
-              className={`${textMuted} px-2 py-2 ${isDarkMode ? "hover:text-text-dark-heading" : "hover:text-text-heading"}`}
+          <li className="hidden sm:block">
+            <a
+              href="https://www.linkedin.com/in/cole-morgan-/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta bg-surface-action group relative block cursor-pointer overflow-hidden rounded-full px-4 py-2"
             >
-              Work
-            </Link>
-          </li>
-          <li className={`${textMuted} cursor-pointer px-2 py-2`}>About</li>
-          <li>
-            <a className="cta bg-surface-action group relative block cursor-pointer overflow-hidden rounded-full px-4 py-2">
               <p className="text-text-on-action relative z-10"> Contact Me &nbsp; →</p>
               <div className="bg-surface-action-hover absolute top-1/2 left-1/2 z-0 size-1 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-all duration-200 group-hover:size-36 group-hover:opacity-100"></div>
             </a>
           </li>
+          <li className="sm:hidden">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className={`${textHeading} ${navBorder} flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border p-2 transition-colors hover:bg-black/4`}
+            >
+              <HugeiconsIcon icon={menuOpen ? Cancel01Icon : Menu01Icon} size={18} />
+            </button>
+          </li>
         </ul>
       </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15, ease: "easeInOut" }}
+            className="bg-[#009DD6] fixed inset-0 z-100 sm:hidden"
+          >
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+              className="text-text-heading absolute top-4 right-6 cursor-pointer text-sm font-medium transition-colors"
+            >
+              Close
+            </button>
+
+            <div className="flex h-full flex-col justify-end gap-8 p-6 pb-10">
+              <ul className="flex flex-col gap-3 text-4xl font-medium">
+                {sectionLinks.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="text-white  block transition-colors up"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <ul className="border-border-default flex w-fit flex-col gap-3 border-t pt-6 text-4xl font-medium">
+                {contactLinks.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      onClick={() => setMenuOpen(false)}
+                      className="text-white transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

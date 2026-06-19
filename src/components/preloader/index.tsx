@@ -148,7 +148,7 @@ export default function Preloader() {
             bottom: 0,
             left: `${(i / COLUMN_COUNT) * 100}%`,
             width: `calc(${100 / COLUMN_COUNT}% + 1px)`,
-            backgroundColor: "#00bbfd",
+            backgroundColor: "#009DD6",
             zIndex: 2,
           }}
         />

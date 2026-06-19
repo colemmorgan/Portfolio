@@ -1,23 +1,13 @@
-import { useEffect, useId, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
-import { Link } from "@tanstack/react-router";
-import { projects } from "@/data/projects";
+import { useEffect, useId, useState } from "react";
+// import { Link } from "@tanstack/react-router";
+// import { projects } from "@/data/projects";
 
 export default function Footer() {
-  const footerRef = useRef<HTMLElement | null>(null);
-
   // React 18 useId includes ":" which breaks url(#id)
   const baseId = useId().replace(/:/g, "");
   const cutoutMaskId = `${baseId}-cutout`;
 
   const [fontsReady, setFontsReady] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: footerRef,
-    offset: ["start end", "start start"],
-  });
-
-  const footerMargin = useTransform(scrollYProgress, [0, 1], ["0px", "32px"]);
 
   useEffect(() => {
     if (typeof document === "undefined" || !("fonts" in document)) {
@@ -28,109 +18,76 @@ export default function Footer() {
   }, []);
 
   return (
-    <motion.footer
-      ref={footerRef}
+    <footer
       data-home-footer="true"
-      className="relative z-10 overflow-hidden p-8 pt-20"
-      style={{ margin: footerMargin }}
+      className="relative z-10 px-6 pt-12 pb-5 text-sm sm:p-8 sm:pt-20 sm:text-base border-t border-border-default"
     >
-      {/* Subtle dark backdrop over global scene */}
-      <div className="pointer-events-none absolute inset-0 z-5 bg-white/15" />
-
-      {/* Corner notches */}
-      <div className="pointer-events-none absolute inset-0 z-30 flex flex-col justify-between p-2" aria-hidden>
-        <div className="flex justify-between">
-          <div>
-            <span className="block h-px w-2 bg-white/50" />
-            <span className="block h-1.75 w-px bg-white/50" />
-          </div>
-          <div className="flex flex-col items-end">
-            <span className="block h-px w-2 bg-white/50" />
-            <span className="block h-1.75 w-px bg-white/50" />
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <div>
-            <span className="block h-1.75 w-px bg-white/50" />
-            <span className="block h-px w-2 bg-white/50" />
-          </div>
-          <div className="flex flex-col items-end">
-            <span className="block h-1.75 w-px bg-white/50" />
-            <span className="block h-px w-2 bg-white/50" />
-          </div>
-        </div>
-      </div>
-
-      <div className="relative z-20 mb-20 flex flex-col gap-4">
+      <div className="relative z-20 mb-8 flex flex-col gap-3 sm:mb-20 sm:gap-4">
         <figure>
-          <img src="/signature.svg" alt="Signature" className="h-5" />
+          <img src="/signature.svg" alt="Signature" className="h-4 sm:h-5" />
         </figure>
-        <p className="text-text-dark-muted text-sm">
+        <p className="text-text-muted text-xs sm:text-sm">
           © 2026 Cole Morgan. All rights reserved.
         </p>
       </div>
 
-      <div className="relative z-20 grid grid-cols-12 gap-8">
-        <div className="col-span-3 flex flex-col gap-3 font-medium">
-          <p className="text-text-dark-heading">Social Media/Contact</p>
+      <div className="relative z-20 grid grid-cols-1 gap-8 sm:grid-cols-12">
+        <div className="flex flex-col gap-3 font-medium sm:col-span-3">
+          <p className="text-text-heading">Social Media/Contact</p>
           <a
-            href=""
-            className="text-text-dark-body hover:text-text-dark-heading w-fit py-0.5"
+            href="https://www.linkedin.com/in/cole-morgan-/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-body hover:text-text-heading w-fit py-0.5 transition-colors"
           >
             LinkedIn ↗
           </a>
           <a
-            href=""
-            className="text-text-dark-body hover:text-text-dark-heading w-fit py-0.5"
+            href="https://github.com/colemmorgan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-body hover:text-text-heading w-fit py-0.5 transition-colors"
           >
             GitHub ↗
           </a>
           <a
-            href=""
-            className="text-text-dark-body hover:text-text-dark-heading w-fit py-0.5"
+            href="mailto:colemmorgann@gmail.com"
+            className="text-text-body hover:text-text-heading w-fit py-0.5 transition-colors"
           >
             Email ↗
           </a>
         </div>
 
-        <div className="col-span-3 flex flex-col gap-3 font-medium">
-          <p className="text-text-dark-heading">Pages</p>
+        <div className="flex flex-col gap-3 font-medium sm:col-span-3">
+          <p className="text-text-heading">Sections</p>
           <a
-            href=""
-            className="text-text-dark-body hover:text-text-dark-heading w-fit py-0.5"
+            href="/#"
+            className="text-text-body hover:text-text-heading w-fit py-0.5 transition-colors"
           >
             Home
           </a>
           <a
-            href=""
-            className="text-text-dark-body hover:text-text-dark-heading w-fit py-0.5"
+            href="/#work"
+            className="text-text-body hover:text-text-heading w-fit py-0.5 transition-colors"
           >
             Work
           </a>
           <a
-            href=""
-            className="text-text-dark-body hover:text-text-dark-heading w-fit py-0.5"
+            href="/#experience"
+            className="text-text-body hover:text-text-heading w-fit py-0.5 transition-colors"
           >
-            About
+            Experience
           </a>
-        </div>
-
-        <div className="col-span-3 flex flex-col gap-3 font-medium">
-          <p className="text-text-dark-heading">Case Studies</p>
-          {projects.map((project) => (
-            <Link
-              key={project.slug}
-              to="/work/$projectSlug"
-              params={{ projectSlug: project.slug }}
-              className="text-text-dark-body hover:text-text-dark-heading w-fit py-0.5 transition-colors"
-            >
-              {project.title} ↗
-            </Link>
-          ))}
+          <a
+            href="/#competencies"
+            className="text-text-body hover:text-text-heading w-fit py-0.5 transition-colors"
+          >
+            Competencies
+          </a>
         </div>
       </div>
 
-      <div className="text-text-dark-muted relative z-20 mt-24 mb-8 grid grid-cols-4 items-end gap-8">
+      <div className="text-text-muted relative z-20 mt-12 mb-8 grid grid-cols-1 gap-4 sm:mt-24 sm:grid-cols-4 sm:items-end sm:gap-8">
         <p>
           Designed in Figma. <br /> Built with TanStack Start.
         </p>
@@ -139,17 +96,10 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="h-[clamp(88px,9.2vw,180px)]" aria-hidden />
+      <div className="h-[clamp(48px,11vw,180px)]" aria-hidden />
 
-      {/* <p
-        className="text-text-dark-heading pointer-events-none absolute right-8 bottom-0 z-30 text-[clamp(88px,9.2vw,180px)] leading-none font-medium tracking-[-0.04em] opacity-15"
-        aria-hidden
-      >
-        04
-      </p> */}
-
-      {/* Cutout mask */}
-      <div className="pointer-events-none absolute inset-0 z-10" aria-hidden>
+      {/* White fill with a "Cole Morgan"-shaped cutout revealing the canvas behind */}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
         <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <mask id={cutoutMaskId}>
@@ -175,11 +125,11 @@ export default function Footer() {
             y="0"
             width="100%"
             height="100%"
-            fill="#131415"
+            fill="white"
             mask={`url(#${cutoutMaskId})`}
           />
         </svg>
       </div>
-    </motion.footer>
+    </footer>
   );
 }

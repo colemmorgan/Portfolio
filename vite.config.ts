@@ -9,6 +9,9 @@ import tailwindcss from "@tailwindcss/vite";
 import glsl from "vite-plugin-glsl";
 
 const config = defineConfig({
+  server: {
+    allowedHosts: [".ngrok-free.app"],
+  },
   plugins: [
     devtools(),
     tsconfigPaths({ projects: ["./tsconfig.json"] }),

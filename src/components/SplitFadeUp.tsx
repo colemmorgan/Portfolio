@@ -12,6 +12,7 @@ interface SplitFadeUpProps {
   className?: string;
   as?: ElementType;
   trigger?: "mount" | "inView";
+  initialDelay?: number;
   onAnimationComplete?: () => void;
 }
 
@@ -20,6 +21,7 @@ export default function SplitFadeUp({
   className = "",
   as: Component = "div",
   trigger = "mount",
+  initialDelay = 0.5,
   onAnimationComplete,
 }: SplitFadeUpProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -98,7 +100,7 @@ export default function SplitFadeUp({
         transition={{
           duration: 0.7,
           ease: [0.33, 1, 0.68, 1],
-          delay: 0.5 + i * 0.09,
+          delay: initialDelay + i * 0.09,
         }}
         onAnimationComplete={
           i === lines.length - 1 ? handleComplete : undefined

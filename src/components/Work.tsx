@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Link } from "@tanstack/react-router";
+// import { Link } from "@tanstack/react-router";
 import { projects } from "@/data/projects";
 
 export type { Project } from "@/data/projects";
@@ -45,19 +45,19 @@ export default function Work({ canAnimate = false }: WorkProps) {
   }, [canAnimate]);
 
   return (
-    <section className="border-border-default border-b">
-      <div className="mx-auto px-8 pt-18 pb-12">
-        <h2 className="mb-3 text-4xl font-medium">02 Work</h2>
+    <section id="work" className="border-border-default border-b scroll-mt-14">
+      <div className="mx-auto px-6 sm:px-8 py-12 sm:py-16 lg:py-20">
+        <h2 className="mb-1 sm:mb-3 text-3xl sm:text-4xl font-medium">02 Work</h2>
         <div ref={containerRef}>
           {projects.map((project) => (
             <div
               key={project.slug}
               id={project.slug}
               data-project-item
-              className={`border-border-default grid grid-cols-12 gap-8 border-b border-dashed py-6 last:border-b-0 scroll-mt-14 ${canAnimate ? "opacity-0" : ""}`}
+              className={`border-border-default grid grid-cols-1 gap-6 xl:gap-8 border-b border-dashed py-6 last:border-b-0 scroll-mt-14 xl:grid-cols-12 ${canAnimate ? "opacity-0" : ""}`}
             >
               <figure
-                className="border-border-default col-span-6 aspect-3/2 overflow-hidden border"
+                className="border-border-default aspect-3/2 overflow-hidden border xl:col-span-6"
                 style={{ viewTransitionName: `project-${project.slug}` }}
               >
                 <img
@@ -66,13 +66,13 @@ export default function Work({ canAnimate = false }: WorkProps) {
                   className="block h-full w-full object-cover"
                 />
               </figure>
-              <div className="col-span-6 flex flex-col justify-between">
+              <div className="flex flex-col justify-between xl:col-span-6">
                 <div className="flex flex-col gap-1">
                   <a
                     href={project.liveUrl ?? "#"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative inline-block w-fit"
+                    className="group relative inline-block w-fit mb-1"
                   >
                     <p className="relative z-10 flex cursor-pointer items-center gap-1.5 text-xl font-medium">
                       {project.title} <span className="pr-1.5">↗</span>
@@ -100,27 +100,27 @@ export default function Work({ canAnimate = false }: WorkProps) {
                       </div>
                     </div>
                   </a>
-                  <Link
+                  {/* <Link
                     to="/work/$projectSlug"
                     params={{ projectSlug: project.slug }}
                     className="text-text-muted inline-block text-sm underline hover:text-text-heading transition-colors"
                   >
                     View Case Study
-                  </Link>
+                  </Link> */}
                 </div>
-                <div>
+                <div className="">
                   <div className="grid grid-cols-6 gap-8">
-                    <p className="text-text-body col-span-4 font-medium">
+                    <p className="text-text-body col-span-6 lg:col-span-4 font-medium">
                       {project.description}
                     </p>
                   </div>
-                  <div className="border-border-default mt-4 grid grid-cols-6 gap-8 border-t py-2 font-medium">
+                  <div className="border-border-default mt-4 grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-8 border-t py-2 font-medium">
                     <p className="text-text-muted col-span-3">Tech Stack</p>
                     <p className="text-text-body col-span-3">
                       {project.techStack}
                     </p>
                   </div>
-                  <div className="border-border-default grid grid-cols-6 gap-8 border-y py-2 font-medium">
+                  <div className="border-border-default grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-8 border-y py-2 font-medium">
                     <p className="text-text-muted col-span-3">Users</p>
                     <p className="text-text-body col-span-3">{project.users}</p>
                   </div>

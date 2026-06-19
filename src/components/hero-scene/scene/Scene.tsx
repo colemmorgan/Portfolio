@@ -46,13 +46,15 @@ export function Scene() {
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }, [size.width, size.height])
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     const composer = composerRef.current
     const largeMat = largeMaterialRef.current
 
     if (!composer || !largeMat) return
 
-    timeRef.current += 0.01
+    // Scaled by delta so the animation speed no longer depends on the
+    // device's actual frame rate.
+    timeRef.current += 0.85 * delta
     largeMat.uniforms.time.value = timeRef.current
 
     // useFrame already runs on rAF; render directly to avoid nested frame loops.

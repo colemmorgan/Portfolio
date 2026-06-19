@@ -15,28 +15,18 @@ export const projects: Project[] = [
     title: "RE Game Asset Viewer",
     liveUrl: "https://stitch101.com",
     description:
-      "Greatdient is tool to design professional and beautiful gradients through a simple and intuitive interface. Built on WebGL shaders to create natural and realistic gradients.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
+      "Platform for visualizing and managing reverse-engineered Wizard101 assets, supporting 1,000+ registered users",
+    techStack: "React, Rust, TypeScript, PSQL, FastAPI",
     users: "100,000",
   },
-  // {
-  //   slug: "satlantis-llc",
-  //   image: "/project-mockups/satlantis.png",
-  //   title: "Satlantis LLC",
-  //   liveUrl: "#",
-  //   description:
-  //     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-  //   techStack: "React, Figma, OpenGL, PSQL, FastAPI",
-  //   users: "100,000",
-  // },
   {
     slug: "society-of-pc-building",
     image: "/project-mockups/spcb.png",
     title: "Society of PC Building",
     liveUrl: "https://www.spcbatuf.org/",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
+      "Website for the Society of PC Building, serving 1,000+ club members with Firebase integration and a custom admin panel for real-time content management",
+    techStack: "Next.js, TypeScript, Firebase, Figma",
     users: "100,000",
   },
   {
@@ -45,8 +35,8 @@ export const projects: Project[] = [
     title: "Coaching Personal Website",
     liveUrl: "https://www.fionn.pro/",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, repellat et cum necessitatibus esse saepe. Perspiciatis labore consectetur recusandae iusto cumque corporis a magnam.",
-    techStack: "React, Figma, OpenGL, PSQL, FastAPI",
+      "Freelance design/development project I created for a client to tell a story about his career and create a personal brand.",
+    techStack: "React, Figma, TypeScript",
     users: "100,000",
   },
 ];
