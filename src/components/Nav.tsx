@@ -45,18 +45,14 @@ export default function Nav() {
     const id = href.slice(hashIndex + 1);
 
     document.body.style.overflow = "";
-    setMenuOpen(false);
 
-    // Wait for the menu's exit transition to finish (and the overlay to
-    // unmount) before scrolling, so the smooth scroll isn't fighting that
-    // re-render/animation and getting cut short.
-    window.setTimeout(() => {
-      if (id) {
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }, 160);
+    if (id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    setMenuOpen(false);
   };
 
   useEffect(() => {

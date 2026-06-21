@@ -113,7 +113,7 @@ export default function PhotoGallery({ canAnimate = false }: PhotoGalleryProps) 
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-black/90 p-4 sm:p-8"
+                className="fixed inset-0 z-100 flex cursor-pointer flex-col items-center justify-center overflow-hidden bg-black/90 p-4 sm:p-8"
                 onClick={close}
               >
                 <button
@@ -125,15 +125,12 @@ export default function PhotoGallery({ canAnimate = false }: PhotoGalleryProps) 
                   <HugeiconsIcon icon={Cancel01Icon} size={28} />
                 </button>
 
-                <div
-                  className="relative flex w-full max-w-5xl flex-1 items-center justify-center"
-                  onClick={(e) => e.stopPropagation()}
-                >
+                <div className="relative flex w-full max-w-5xl flex-1 items-center justify-center">
                   <button
                     type="button"
-                    onClick={showPrev}
+                    onClick={(e) => { e.stopPropagation(); showPrev(); }}
                     aria-label="Previous image"
-                    className="absolute left-0 cursor-pointer text-white/70 transition-colors hover:text-white sm:-left-12"
+                    className="absolute left-0 z-10 cursor-pointer text-white/70 transition-colors hover:text-white sm:-left-12"
                   >
                     <HugeiconsIcon icon={ArrowLeft01Icon} size={32} />
                   </button>
@@ -144,20 +141,21 @@ export default function PhotoGallery({ canAnimate = false }: PhotoGalleryProps) 
                     sizes="90vw"
                     alt=""
                     className="max-h-[70vh] w-auto max-w-full object-contain"
+                    onClick={(e) => e.stopPropagation()}
                   />
 
                   <button
                     type="button"
-                    onClick={showNext}
+                    onClick={(e) => { e.stopPropagation(); showNext(); }}
                     aria-label="Next image"
-                    className="absolute right-0 cursor-pointer text-white/70 transition-colors hover:text-white sm:-right-12"
+                    className="absolute right-0 z-10 cursor-pointer text-white/70 transition-colors hover:text-white sm:-right-12"
                   >
                     <HugeiconsIcon icon={ArrowRight01Icon} size={32} />
                   </button>
                 </div>
 
                 <div
-                  className="mt-6 flex w-full max-w-5xl justify-center gap-2 overflow-x-auto px-2"
+                  className="mt-6 flex w-full max-w-5xl justify-center gap-1.5 overflow-x-hidden px-2 sm:gap-2"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {PHOTO_NUMBERS.map((n, i) => (
@@ -166,7 +164,7 @@ export default function PhotoGallery({ canAnimate = false }: PhotoGalleryProps) 
                       type="button"
                       onClick={() => setActiveIndex(i)}
                       aria-label={`Go to image ${i + 1}`}
-                      className={`aspect-3/4 h-16 shrink-0 cursor-pointer overflow-hidden rounded-sm border-2 transition-colors sm:h-20 ${
+                      className={`aspect-3/4 h-10 shrink-0 cursor-pointer overflow-hidden rounded-sm border-2 transition-colors sm:h-16 ${
                         i === activeIndex
                           ? "border-white"
                           : "border-transparent opacity-60 hover:opacity-100"

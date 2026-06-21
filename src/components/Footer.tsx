@@ -90,11 +90,19 @@ export default function Footer() {
           Designed in Figma. <br /> Built with TanStack Start.
         </p>
         <p>
-          Type set in <span className="underline">PP Neue Montreal</span>
+          Type set in{" "}
+          <a
+            href="https://pangrampangram.com/products/neue-montreal"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-text-heading transition-colors"
+          >
+            PP Neue Montreal
+          </a>
         </p>
       </div>
 
-      <div className="h-[clamp(48px,11vw,180px)]" aria-hidden />
+      <div className="h-[15.5vw] sm:h-[clamp(48px,11vw,180px)]" aria-hidden />
 
       {/* White fill with a "Cole Morgan"-shaped cutout revealing the canvas behind */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
@@ -105,11 +113,19 @@ export default function Footer() {
               {fontsReady && (
                 <>
                   <text
+                    x="24"
+                    y="99%"
+                    fill="black"
+                    className="footer-mask-text sm:hidden"
+                    style={{ fontSize: "15.5vw" }}
+                  >
+                    Cole Morgan
+                  </text>
+                  <text
                     x="32"
                     y="99%"
                     fill="black"
-                    className="footer-mask-text"
-                    textAnchor="start"
+                    className="footer-mask-text hidden sm:inline"
                   >
                     Cole Morgan
                   </text>
