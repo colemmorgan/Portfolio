@@ -18,22 +18,22 @@ const competencies: Competency[] = [
     id: "3.001",
     title: "Frontend",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus rerum cum eos sit dolore pariatur omnis quisquam vero distinctio debitis tenetur, ratione temporibus alias.",
-    tech: "TypeScript, React, Next.js, Angular, CSS, Tailwind",
+      "I build interfaces in React, Next.js, and TypeScript, from satellite imagery dashboards to a Three.js-powered model visualizer with 1,000+ users. I've also shipped a high-performance WebGL spectral imagery viewer that cut page load times by 10x.",
+    tech: "TypeScript, React, Next.js, Tailwind, Three.js",
   },
     {
     id: "3.002",
     title: "Backend",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus rerum cum eos sit dolore pariatur omnis quisquam vero distinctio debitis tenetur, ratione temporibus alias.",
-    tech: "Python, FastAPI, Rust, SQL, AWS, Terraform, MongoDB, Redis",
+      "I design and ship APIs and infrastructure with FastAPI, PostgreSQL, and Rust, including a STAC-compliant geospatial platform and an Auto-QC pipeline that cut image QA time by 90%. I provision and deploy on AWS with Terraform and GitLab CI/CD.",
+    tech: "Python, FastAPI, Rust, PostgreSQL, AWS, Terraform, Docker",
   },
   {
     id: "3.003",
     title: "Design",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus rerum cum eos sit dolore pariatur omnis quisquam vero distinctio debitis tenetur, ratione temporibus alias.",
-    tech: "Figma, Illustrator, Blender",
+      "As a Design Engineer Intern, I designed and shipped a custom admin panel and member site in Figma and code. I've also interviewed engineers across the U.S. and Europe to shape the design of a cross-team satellite imagery platform.",
+    tech: "Figma, Design Systems, User Research",
   },
 
 ];
@@ -87,7 +87,7 @@ export default function Competencies({
           as="h3"
           className="max-w-full text-3xl font-medium md:col-span-6 md:max-w-152.5 md:text-4xl"
           trigger="inView"
-          initialDelay={0.1}
+          initialDelay={0.2}
         >
           Engineer with a background in fullstack dev capable of delivering
           projects from idea to finished product.

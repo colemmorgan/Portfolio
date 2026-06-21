@@ -42,12 +42,59 @@ export const Route = createRootRoute({
       {
         title: "Cole Morgan | Software Engineer",
       },
+      {
+        name: "description",
+        content:
+          "Cole Morgan is a Software Engineer building geospatial tools and ML platforms. Explore his work, experience, and technical projects.",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:url",
+        content: "https://colemorgan.me/",
+      },
+      {
+        property: "og:title",
+        content: "Cole Morgan | Software Engineer",
+      },
+      {
+        property: "og:description",
+        content:
+          "Cole Morgan is a Software Engineer building geospatial tools and ML platforms. Explore his work, experience, and technical projects.",
+      },
+      {
+        property: "og:image",
+        content: "https://colemorgan.me/project-mockups/wizlite.png",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: "Cole Morgan | Software Engineer",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Cole Morgan is a Software Engineer building geospatial tools and ML platforms. Explore his work, experience, and technical projects.",
+      },
+      {
+        name: "twitter:image",
+        content: "https://colemorgan.me/project-mockups/wizlite.png",
+      },
     ],
     links: [
       {
         rel: "icon",
         type: "image/svg+xml",
         href: "/icons/circle.svg",
+      },
+      {
+        rel: "canonical",
+        href: "https://colemorgan.me/",
       },
     ],
   }),

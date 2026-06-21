@@ -1,3 +1,7 @@
+// Case study route disabled — not ready to launch yet. Uncomment everything
+// below (and restore the nav/footer links to it) to bring this page back.
+
+/*
 /// <reference path="../routeTree.gen.ts" />
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useEffect } from "react";
@@ -36,7 +40,6 @@ function CaseStudyPage() {
   return (
     <article className="mt-14 min-h-screen">
       <div className="mx-auto max-w-5xl px-8 pt-12 pb-24">
-        {/* Top center image - shared element: animates from work list position */}
         <div className="mx-auto mb-12 flex justify-center">
           <figure
             className="border-border-default aspect-3/2 w-full max-w-4xl overflow-hidden border"
@@ -70,8 +73,8 @@ function CaseStudyPage() {
               <span className="text-text-body">{project.techStack}</span>
             </div>
             <div className="flex justify-between font-medium">
-              <span className="text-text-muted">Users</span>
-              <span className="text-text-body">{project.users}</span>
+              <span className="text-text-muted">Hosting</span>
+              <span className="text-text-body">{project.hosting}</span>
             </div>
           </div>
         </div>
@@ -79,3 +82,4 @@ function CaseStudyPage() {
     </article>
   );
 }
+*/

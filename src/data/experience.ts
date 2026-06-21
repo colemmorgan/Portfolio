@@ -9,7 +9,7 @@ export interface Experience {
 export const experiences: Experience[] = [
   {
     role: "Junior Software Engineer",
-    company: "Satlantis",
+    company: "Satlantis US",
     year: "Present",
     description:
       "Since December 2025, I've been building a STAC-compliant geospatial imagery platform for dataset management, image search, and AI-assisted annotation using React and FastAPI, cutting annotation time by 60%. I've also automated infrastructure provisioning with Terraform on AWS, set up GitLab CI/CD pipelines for streamlined deployments, and interviewed engineers across the U.S. and Europe to help design a cross-team satellite imagery platform in Figma.",

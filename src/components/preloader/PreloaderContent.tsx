@@ -16,12 +16,6 @@ export default function PreloaderContent({ textRef, d0Ref, d1Ref, d2Ref }: Props
       <span className="text-[clamp(2.5rem,5vw,4.5rem)] font-medium text-white leading-none tracking-[-0.01em]">
         Cole Morgan
       </span>
-<div className="">.</div>
-      {/* <img
-        src="/loader.png"
-        alt=""
-        className="min-h-0 w-full h-full object-contain mix-blend-screen pointer-events-none drop-shadow-[0_0_40px_rgba(255,255,255,0.75)]"
-      /> */}
 
       <div className="flex flex-col items-start gap-4">
         <div className="flex text-[clamp(4rem,9vw,8rem)] leading-none tracking-[-0.03em]" style={{ fontFamily: "'Geist Mono', monospace", fontWeight: 500 }}>

@@ -54,9 +54,9 @@ export default function Experience({ canAnimate = false }: ExperienceProps) {
             {
               y: "0%",
               opacity: 1,
-              duration: 0.65,
+              duration: 0.60,
               ease: "power3.out",
-              delay: 0.1 + j * 0.25,
+              delay: 0.1 + j * 0.20,
               scrollTrigger: {
                 trigger: row,
                 start: "top 88%",

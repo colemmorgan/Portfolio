@@ -1,7 +1,6 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import { Link } from "@tanstack/react-router";
 import { projects } from "@/data/projects";
 
 export type { Project } from "@/data/projects";
@@ -100,13 +99,6 @@ export default function Work({ canAnimate = false }: WorkProps) {
                       </div>
                     </div>
                   </a>
-                  {/* <Link
-                    to="/work/$projectSlug"
-                    params={{ projectSlug: project.slug }}
-                    className="text-text-muted inline-block text-sm underline hover:text-text-heading transition-colors"
-                  >
-                    View Case Study
-                  </Link> */}
                 </div>
                 <div className="">
                   <div className="grid grid-cols-6 gap-8">
@@ -121,8 +113,8 @@ export default function Work({ canAnimate = false }: WorkProps) {
                     </p>
                   </div>
                   <div className="border-border-default grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-8 border-y py-2 font-medium">
-                    <p className="text-text-muted col-span-3">Users</p>
-                    <p className="text-text-body col-span-3">{project.users}</p>
+                    <p className="text-text-muted col-span-3">Hosting</p>
+                    <p className="text-text-body col-span-3">{project.hosting}</p>
                   </div>
                 </div>
               </div>

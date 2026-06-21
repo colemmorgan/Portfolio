@@ -1,8 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowLeft01Icon, ArrowRight01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PHOTO_NUMBERS = [3, 1, 2, 4, 5, 6, 7, 8];
 const WIDTHS = [400, 600, 800, 1000, 1200];
@@ -11,8 +15,13 @@ function srcSetFor(n: number) {
   return WIDTHS.map((w) => `/photos/${n}-${w}.webp ${w}w`).join(", ");
 }
 
-export default function PhotoGallery() {
+interface PhotoGalleryProps {
+  canAnimate?: boolean;
+}
+
+export default function PhotoGallery({ canAnimate = false }: PhotoGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setActiveIndex(null), []);
   const showPrev = useCallback(() => {
@@ -39,6 +48,33 @@ export default function PhotoGallery() {
     };
   }, [activeIndex, close, showPrev, showNext]);
 
+  useEffect(() => {
+    if (!canAnimate || !gridRef.current) return;
+
+    const items = gridRef.current.querySelectorAll("[data-gallery-item]");
+    const ctx = gsap.context(() => {
+      items.forEach((element) => {
+        gsap.fromTo(
+          element,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
+      });
+    }, gridRef);
+
+    return () => ctx.revert();
+  }, [canAnimate]);
+
   return (
     <section
       id="gallery"
@@ -48,13 +84,14 @@ export default function PhotoGallery() {
         05 Photo Gallery
       </h2>
 
-      <div className="grid w-full grid-cols-3 gap-3 px-6 sm:grid-cols-4 sm:gap-4 sm:px-8">
+      <div ref={gridRef} className="grid w-full grid-cols-3 gap-3 px-6 sm:grid-cols-4 sm:gap-4 sm:px-8">
         {PHOTO_NUMBERS.map((n, i) => (
           <button
             key={n}
             type="button"
+            data-gallery-item
             onClick={() => setActiveIndex(i)}
-            className="aspect-3/4 w-full cursor-pointer overflow-hidden"
+            className={`aspect-3/4 w-full cursor-pointer overflow-hidden${canAnimate ? " opacity-0" : ""}`}
           >
             <img
               src={`/photos/${n}-800.webp`}

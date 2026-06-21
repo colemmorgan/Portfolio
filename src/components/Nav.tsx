@@ -5,6 +5,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 
 const EMAIL = "colemmorgann@gmail.com";
+const RESUME_URL = "/ColeMorgan_Resume.pdf";
 
 const sectionLinks = [
   { name: "Home", href: "/#" },
@@ -17,7 +18,12 @@ const contactLinks = [
   { name: "Email", href: `mailto:${EMAIL}` },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/cole-morgan-/" },
   { name: "GitHub", href: "https://github.com/colemmorgan" },
+  { name: "Resume", href: RESUME_URL },
 ];
+
+function isExternalLink(href: string) {
+  return href.startsWith("http") || href.endsWith(".pdf");
+}
 
 export default function Nav() {
   const [copied, setCopied] = useState(false);
@@ -29,6 +35,28 @@ export default function Nav() {
     await navigator.clipboard.writeText(EMAIL);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleSectionLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const hashIndex = href.indexOf("#");
+    if (hashIndex === -1) return;
+
+    e.preventDefault();
+    const id = href.slice(hashIndex + 1);
+
+    document.body.style.overflow = "";
+    setMenuOpen(false);
+
+    // Wait for the menu's exit transition to finish (and the overlay to
+    // unmount) before scrolling, so the smooth scroll isn't fighting that
+    // re-render/animation and getting cut short.
+    window.setTimeout(() => {
+      if (id) {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }, 160);
   };
 
   useEffect(() => {
@@ -130,12 +158,23 @@ export default function Nav() {
           <li className="hidden sm:block">
             <Link
               to="/"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className={`px-2 py-2 ${isDarkMode ? "hover:text-text-dark-heading" : "hover:text-text-heading"}`}
               activeProps={{ className: isDarkMode ? "text-text-dark-heading" : "text-text-heading" }}
               inactiveProps={{ className: isDarkMode ? "text-text-dark-muted" : "text-text-muted" }}
             >
               Home
             </Link>
+          </li>
+          <li className="hidden sm:block">
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${textMuted} px-2 py-2 ${isDarkMode ? "hover:text-text-dark-heading" : "hover:text-text-heading"}`}
+            >
+              Resume
+            </a>
           </li>
           <li className="hidden sm:block">
             <a
@@ -186,7 +225,7 @@ export default function Nav() {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={(e) => handleSectionLinkClick(e, link.href)}
                       className="text-white  block transition-colors up"
                     >
                       {link.name}
@@ -200,8 +239,8 @@ export default function Nav() {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      target={isExternalLink(link.href) ? "_blank" : undefined}
+                      rel={isExternalLink(link.href) ? "noopener noreferrer" : undefined}
                       onClick={() => setMenuOpen(false)}
                       className="text-white transition-colors"
                     >

@@ -1,6 +1,4 @@
 import { useEffect, useId, useState } from "react";
-// import { Link } from "@tanstack/react-router";
-// import { projects } from "@/data/projects";
 
 export default function Footer() {
   // React 18 useId includes ":" which breaks url(#id)

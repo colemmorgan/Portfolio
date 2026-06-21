@@ -5,7 +5,7 @@ export interface Project {
   liveUrl?: string;
   description: string;
   techStack: string;
-  users: string;
+  hosting: string;
 }
 
 export const projects: Project[] = [
@@ -17,7 +17,7 @@ export const projects: Project[] = [
     description:
       "Platform for visualizing and managing reverse-engineered Wizard101 assets, supporting 1,000+ registered users",
     techStack: "React, Rust, TypeScript, PSQL, FastAPI",
-    users: "100,000",
+    hosting: "AWS (S3, CloudFront, EC2, RDS, Route 53)",
   },
   {
     slug: "society-of-pc-building",
@@ -27,7 +27,7 @@ export const projects: Project[] = [
     description:
       "Website for the Society of PC Building, serving 1,000+ club members with Firebase integration and a custom admin panel for real-time content management",
     techStack: "Next.js, TypeScript, Firebase, Figma",
-    users: "100,000",
+    hosting: "Firebase, Vercel",
   },
   {
     slug: "coaching-personal-website",
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     description:
       "Freelance design/development project I created for a client to tell a story about his career and create a personal brand.",
     techStack: "React, Figma, TypeScript",
-    users: "100,000",
+    hosting: "Vercel",
   },
 ];
 

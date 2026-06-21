@@ -21,7 +21,7 @@ function App() {
         <Experience canAnimate={pageReady} />
         <Competencies canAnimate={pageReady} />
       </div>
-      <PhotoGallery />
+      <PhotoGallery canAnimate={pageReady} />
       <Footer />
     </>
   );

@@ -1,25 +1,15 @@
 {
-  "short_name": "TanStack App",
-  "name": "Create TanStack App Sample",
+  "short_name": "Cole Morgan",
+  "name": "Cole Morgan | Software Engineer",
   "icons": [
     {
       "src": "icons/circle.svg",
       "sizes": "any",
       "type": "image/svg+xml"
-    },
-    {
-      "src": "icons/circle.svg",
-      "type": "image/svg+xml",
-      "sizes": "any"
-    },
-    {
-      "src": "icons/circle.svg",
-      "type": "image/svg+xml",
-      "sizes": "any"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#00bbfd",
   "background_color": "#ffffff"
 }
