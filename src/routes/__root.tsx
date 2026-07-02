@@ -3,22 +3,22 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
-  useRouterState,
+  // useRouterState,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 
 import Nav from "@/components/Nav";
 import FixedWebGLBackground from "@/components/BackgroundScene";
-import Preloader from "@/components/preloader";
+// import Preloader from "@/components/preloader";
 import "../styles.css";
 
 function RootLayout() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <div className="relative">
-      {pathname === "/" && <Preloader />}
+      {/* {pathname === "/" && <Preloader />} */}
       <FixedWebGLBackground />
       <Nav />
       <main className="relative z-10">

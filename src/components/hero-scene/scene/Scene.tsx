@@ -1,25 +1,50 @@
 import { useRef, useEffect, useMemo } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
+import GUI from 'lil-gui'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { DotScreenShader } from './DotScreenShader'
+import { BlindShader } from './BlindShader'
 import vertexShader from '../shaders/vertex.glsl'
 import fragmentShader from '../shaders/fragment.glsl'
 
 const LARGE_SPHERE_RADIUS = 1.5
+
+function hexToVec3(hex: string): THREE.Vector3 {
+  const c = new THREE.Color(hex)
+  return new THREE.Vector3(c.r, c.g, c.b)
+}
 
 export function Scene() {
   const { gl, scene, camera, size } = useThree()
   const timeRef = useRef(0)
   const composerRef = useRef<EffectComposer | null>(null)
   const largeMaterialRef = useRef<THREE.ShaderMaterial | null>(null)
+  const blindPassRef = useRef<ShaderPass | null>(null)
+
+  const params = useRef({
+    speed: 1.0,
+    colorBase: '#00bbfd',
+    colorAccent: '#0f141b',
+    colorMid: '#4281db',
+    cameraRotationX: 196,
+    cameraRotationY: 187,
+    cameraRotationZ: 311,
+    blindScale:    20.0,
+    blindAngle:    0.0,
+    blindRefract:  0.5,
+    blindSpecular: 0.0,
+  })
 
   const largeUniforms = useMemo(
     () => ({
       time: { value: 0 },
       resolution: { value: new THREE.Vector4() },
+      uColorBase:   { value: hexToVec3('#00bbfd') },
+      uColorAccent: { value: hexToVec3('#0f141b') },
+      uColorMid:    { value: hexToVec3('#4281db') },
     }),
     []
   )
@@ -28,14 +53,21 @@ export function Scene() {
     const glr = gl as THREE.WebGLRenderer
     const composer = new EffectComposer(glr)
     composer.addPass(new RenderPass(scene, camera))
+
     const dotPass = new ShaderPass(DotScreenShader)
     dotPass.uniforms['scale'].value = 4
     composer.addPass(dotPass)
+
+    const blindPass = new ShaderPass(BlindShader)
+    composer.addPass(blindPass)
+    blindPassRef.current = blindPass
+
     composerRef.current = composer
 
     return () => {
       composer.dispose()
       composerRef.current = null
+      blindPassRef.current = null
     }
   }, [gl, scene, camera])
 
@@ -46,18 +78,66 @@ export function Scene() {
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }, [size.width, size.height])
 
+  useEffect(() => {
+    const gui = new GUI({ title: 'Scene Controls' })
+    const p = params.current
+
+    gui.add(p, 'speed', 0, 3, 0.01).name('Speed')
+
+    const colorFolder = gui.addFolder('Colors')
+    colorFolder.addColor(p, 'colorBase').name('Base').onChange((v: string) => {
+      if (largeMaterialRef.current)
+        largeMaterialRef.current.uniforms.uColorBase.value = hexToVec3(v)
+    })
+    colorFolder.addColor(p, 'colorAccent').name('Accent').onChange((v: string) => {
+      if (largeMaterialRef.current)
+        largeMaterialRef.current.uniforms.uColorAccent.value = hexToVec3(v)
+    })
+    colorFolder.addColor(p, 'colorMid').name('Mid').onChange((v: string) => {
+      if (largeMaterialRef.current)
+        largeMaterialRef.current.uniforms.uColorMid.value = hexToVec3(v)
+    })
+    colorFolder.open()
+
+    const camFolder = gui.addFolder('Camera Rotation')
+    camFolder.add(p, 'cameraRotationX', 0, 360, 0.1).name('X°')
+    camFolder.add(p, 'cameraRotationY', 0, 360, 0.1).name('Y°')
+    camFolder.add(p, 'cameraRotationZ', 0, 360, 0.1).name('Z°')
+    camFolder.open()
+
+    const blindFolder = gui.addFolder('Glass Blinds')
+    blindFolder.add(p, 'blindScale',    1, 30,  0.1).name('Count')
+    blindFolder.add(p, 'blindAngle',    0, Math.PI * 0.5, 0.01).name('Angle')
+    blindFolder.add(p, 'blindRefract',  0, 3,   0.01).name('Refraction')
+    blindFolder.add(p, 'blindSpecular', 0, 2,   0.01).name('Specular')
+    blindFolder.open()
+
+    return () => gui.destroy()
+  }, [])
+
   useFrame((_, delta) => {
-    const composer = composerRef.current
-    const largeMat = largeMaterialRef.current
+    const composer  = composerRef.current
+    const largeMat  = largeMaterialRef.current
+    const blindPass = blindPassRef.current
 
     if (!composer || !largeMat) return
 
-    // Scaled by delta so the animation speed no longer depends on the
-    // device's actual frame rate.
-    timeRef.current += 0.85 * delta
+    timeRef.current += params.current.speed * delta
     largeMat.uniforms.time.value = timeRef.current
 
-    // useFrame already runs on rAF; render directly to avoid nested frame loops.
+    const toRad = (d: number) => (d * Math.PI) / 180
+    camera.rotation.x = toRad(params.current.cameraRotationX)
+    camera.rotation.y = toRad(params.current.cameraRotationY)
+    camera.rotation.z = toRad(params.current.cameraRotationZ)
+
+    if (blindPass) {
+      blindPass.uniforms.uTime.value     = timeRef.current
+      blindPass.uniforms.uScale.value    = params.current.blindScale
+      blindPass.uniforms.uAngle.value    = params.current.blindAngle
+      blindPass.uniforms.uRefract.value  = params.current.blindRefract
+      blindPass.uniforms.uSpecular.value = params.current.blindSpecular
+    }
+
     composer.render()
   }, 1)
 

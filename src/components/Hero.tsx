@@ -18,7 +18,7 @@ export default function Hero() {
         <div className="relative z-20 flex flex-col-reverse gap-5 text-white lg:flex-row lg:items-end lg:justify-between">
           <SplitFadeUp
             as="h1"
-            className="max-w-full text-balance text-[34px] leading-[1.1em] tracking-[-0.01em] sm:max-w-[1030px] sm:text-[44px] sm:leading-[1.05em] lg:text-[56px] xl:text-[60px]"
+            className="max-w-full text-balance text-[34px] leading-[1.1em] tracking-[-0.01em] sm:max-w-[1030px] sm:text-[44px] sm:leading-[1.05em] lg:text-[56px] xl:text-[64px]"
             trigger="inView"
           >
             Software Engineer building geospatial tools and ML platforms at
