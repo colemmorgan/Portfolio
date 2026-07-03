@@ -2,10 +2,11 @@ import { useLayoutEffect, useEffect, useRef } from "react";
 import gsap from "gsap";
 import PreloaderContent from "./PreloaderContent";
 
-const COLUMN_COUNT = 8;
-const STEP = 0.055;
-const DURATION = 0.95;
-const JITTER = 0.005;
+const COLS = 14;
+const ROWS = 10;
+const TILE_DURATION = 0.18;
+const TILE_STAGGER = 0.005;
+const BASE_DELAY = 0.15;
 
 export default function Preloader() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +48,6 @@ export default function Preloader() {
     const textEl = textRef.current;
     if (!container || !textEl) return;
 
-    const columns = container.querySelectorAll<HTMLDivElement>(".preloader-col");
     const tweens: gsap.core.Tween[] = [];
 
     const runExit = () => {
@@ -65,17 +65,23 @@ export default function Preloader() {
       }
 
       window.dispatchEvent(new Event("preloader-complete"));
-      tweens.push(gsap.to(textEl, { opacity: 0, duration: 0.3, ease: "power2.in" }));
+      tweens.push(gsap.to(textEl, { opacity: 0, duration: 0.25, ease: "power2.in" }));
 
-      const BASE = 0.3;
-      Array.from(columns).forEach((col, i) => {
-        const delay = BASE + i * STEP + (Math.random() * 2 - 1) * JITTER;
+      const tiles = Array.from(container.querySelectorAll<HTMLDivElement>(".preloader-tile"));
+      const shuffled = [...tiles].sort(() => Math.random() - 0.5);
+
+      shuffled.forEach((tile, i) => {
         tweens.push(
-          gsap.fromTo(col, { yPercent: 0 }, { yPercent: -100, duration: DURATION, ease: "power4.out", delay })
+          gsap.to(tile, {
+            opacity: 0,
+            duration: TILE_DURATION,
+            ease: "power2.in",
+            delay: BASE_DELAY + i * TILE_STAGGER,
+          })
         );
       });
 
-      const totalMs = (BASE + (columns.length - 1) * STEP + JITTER + DURATION + 0.05) * 1000;
+      const totalMs = (BASE_DELAY + (tiles.length - 1) * TILE_STAGGER + TILE_DURATION + 0.1) * 1000;
       setTimeout(() => {
         container.style.visibility = "hidden";
         container.style.pointerEvents = "none";
@@ -138,21 +144,25 @@ export default function Preloader() {
         d2Ref={d2Ref}
       />
 
-      {Array.from({ length: COLUMN_COUNT }).map((_, i) => (
-        <div
-          key={i}
-          className="preloader-col"
-          style={{
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            left: `${(i / COLUMN_COUNT) * 100}%`,
-            width: `calc(${100 / COLUMN_COUNT}% + 1px)`,
-            backgroundColor: "#009DD6",
-            zIndex: 2,
-          }}
-        />
-      ))}
+      {Array.from({ length: COLS * ROWS }).map((_, i) => {
+        const col = i % COLS;
+        const row = Math.floor(i / COLS);
+        return (
+          <div
+            key={i}
+            className="preloader-tile"
+            style={{
+              position: "absolute",
+              left: `${(col / COLS) * 100}%`,
+              top: `${(row / ROWS) * 100}%`,
+              width: `calc(${100 / COLS}% + 1px)`,
+              height: `calc(${100 / ROWS}% + 1px)`,
+              backgroundColor: "#080d0a",
+              zIndex: 2,
+            }}
+          />
+        );
+      })}
     </div>
   );
 }

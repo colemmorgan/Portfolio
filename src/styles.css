@@ -27,7 +27,7 @@
 @theme {
   --font-sans: "PP Neue Montreal", sans-serif;
   /* surfaces */
-  --color-surface-page: #ffffff;
+  --color-surface-page: #080d0a;
 
   --color-surface-action: #00bbfd;
   --color-surface-action-hover: #33caff;
@@ -49,7 +49,7 @@
 
 @layer base {
   body {
-    /* background-color: #fff; */
+    background-color: var(--color-surface-page);
     color: var(--color-text-heading);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;

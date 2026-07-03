@@ -1,7 +1,6 @@
 import { useRef, useEffect, useMemo } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import GUI from 'lil-gui'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
@@ -26,9 +25,9 @@ export function Scene() {
 
   const params = useRef({
     speed: 1.0,
-    colorBase: '#00bbfd',
-    colorAccent: '#0f141b',
-    colorMid: '#4281db',
+    colorBase: '#00ffbf',
+    colorAccent: '#080d0a',
+    colorMid: '#247525',
     cameraRotationX: 196,
     cameraRotationY: 187,
     cameraRotationZ: 311,
@@ -42,9 +41,9 @@ export function Scene() {
     () => ({
       time: { value: 0 },
       resolution: { value: new THREE.Vector4() },
-      uColorBase:   { value: hexToVec3('#00bbfd') },
-      uColorAccent: { value: hexToVec3('#0f141b') },
-      uColorMid:    { value: hexToVec3('#4281db') },
+      uColorBase:   { value: hexToVec3('#00ffbf') },
+      uColorAccent: { value: hexToVec3('#080d0a') },
+      uColorMid:    { value: hexToVec3('#247525') },
     }),
     []
   )
@@ -78,42 +77,6 @@ export function Scene() {
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }, [size.width, size.height])
 
-  useEffect(() => {
-    const gui = new GUI({ title: 'Scene Controls' })
-    const p = params.current
-
-    gui.add(p, 'speed', 0, 3, 0.01).name('Speed')
-
-    const colorFolder = gui.addFolder('Colors')
-    colorFolder.addColor(p, 'colorBase').name('Base').onChange((v: string) => {
-      if (largeMaterialRef.current)
-        largeMaterialRef.current.uniforms.uColorBase.value = hexToVec3(v)
-    })
-    colorFolder.addColor(p, 'colorAccent').name('Accent').onChange((v: string) => {
-      if (largeMaterialRef.current)
-        largeMaterialRef.current.uniforms.uColorAccent.value = hexToVec3(v)
-    })
-    colorFolder.addColor(p, 'colorMid').name('Mid').onChange((v: string) => {
-      if (largeMaterialRef.current)
-        largeMaterialRef.current.uniforms.uColorMid.value = hexToVec3(v)
-    })
-    colorFolder.open()
-
-    const camFolder = gui.addFolder('Camera Rotation')
-    camFolder.add(p, 'cameraRotationX', 0, 360, 0.1).name('X°')
-    camFolder.add(p, 'cameraRotationY', 0, 360, 0.1).name('Y°')
-    camFolder.add(p, 'cameraRotationZ', 0, 360, 0.1).name('Z°')
-    camFolder.open()
-
-    const blindFolder = gui.addFolder('Glass Blinds')
-    blindFolder.add(p, 'blindScale',    1, 30,  0.1).name('Count')
-    blindFolder.add(p, 'blindAngle',    0, Math.PI * 0.5, 0.01).name('Angle')
-    blindFolder.add(p, 'blindRefract',  0, 3,   0.01).name('Refraction')
-    blindFolder.add(p, 'blindSpecular', 0, 2,   0.01).name('Specular')
-    blindFolder.open()
-
-    return () => gui.destroy()
-  }, [])
 
   useFrame((_, delta) => {
     const composer  = composerRef.current

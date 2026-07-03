@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import { Copy } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Link } from "@tanstack/react-router";
+import { usePageReady } from "@/hooks/usePageReady";
 
 const EMAIL = "colemmorgann@gmail.com";
 const RESUME_URL = "/ColeMorgan_Resume.pdf";
 
 export default function Nav() {
   const [copied, setCopied] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pageReady = usePageReady();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleCopyEmail = async () => {
     await navigator.clipboard.writeText(EMAIL);
@@ -16,8 +27,11 @@ export default function Nav() {
   };
 
   return (
-    <nav
-      className="pointer-events-none fixed top-0 right-0 left-0 z-50 flex items-center justify-between px-6 pt-5 sm:px-8 font-medium"
+    <motion.nav
+      initial={{ y: -32, opacity: 0 }}
+      animate={{ y: pageReady ? 0 : -32, opacity: pageReady ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: "easeOut", delay: 0.6 }}
+      className={`pointer-events-none fixed top-0 right-0 left-0 z-50 flex items-center justify-between px-6 sm:px-8 font-medium transition-[background-color,border-color,padding] duration-300 ${scrolled ? "bg-surface-page border-b border-border-default-dark py-3" : "pt-5"}`}
       style={{ viewTransitionName: "main-nav" }}
     >
       <figure className="pointer-events-auto flex flex-col">
@@ -73,6 +87,6 @@ export default function Nav() {
           </a>
         </li>
       </ul>
-    </nav>
+    </motion.nav>
   );
 }
