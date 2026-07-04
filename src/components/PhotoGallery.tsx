@@ -78,10 +78,10 @@ export default function PhotoGallery({ canAnimate = false }: PhotoGalleryProps) 
   return (
     <section
       id="gallery"
-      className="border-border-default scroll-mt-14 w-full border-t bg-white py-12 sm:py-16 lg:py-20"
+      className="border-border-default-dark bg-surface-page scroll-mt-14 w-full border-t py-12 sm:py-16 lg:py-20"
     >
-      <h2 className="mb-4 px-6 text-3xl font-medium sm:mb-6 sm:px-8 sm:text-4xl">
-        05 Photo Gallery
+      <h2 className="text-text-dark-heading mb-4 px-6 text-3xl font-medium sm:mb-6 sm:px-8 sm:text-4xl">
+        Photo Gallery
       </h2>
 
       <div ref={gridRef} className="grid w-full grid-cols-3 gap-3 px-6 sm:grid-cols-4 sm:gap-4 sm:px-8">

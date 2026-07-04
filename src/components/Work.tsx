@@ -46,7 +46,7 @@ export default function Work({ canAnimate = false }: WorkProps) {
   return (
     <section id="work" className="border-border-default-dark border-b scroll-mt-14">
       <div className="mx-auto px-6 sm:px-8 py-12 sm:py-16 lg:py-20">
-        <h2 className="mb-1 sm:mb-3 text-3xl sm:text-4xl font-medium text-text-dark-heading">02 Work</h2>
+        <h2 className="mb-1 sm:mb-3 text-3xl sm:text-4xl font-medium text-text-dark-heading">Work</h2>
         <div ref={containerRef}>
           {projects.map((project) => (
             <div

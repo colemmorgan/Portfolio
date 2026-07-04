@@ -1,5 +1,9 @@
+import { lazy, Suspense } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { SceneCanvas } from "./hero-scene/scene/SceneCanvas";
+
+const SceneCanvas = lazy(() =>
+  import("./hero-scene/scene/SceneCanvas").then((m) => ({ default: m.SceneCanvas }))
+);
 
 export default function FixedWebGLBackground() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
@@ -9,8 +13,10 @@ export default function FixedWebGLBackground() {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-      <SceneCanvas />
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-0 h-lvh" aria-hidden="true">
+      <Suspense fallback={null}>
+        <SceneCanvas />
+      </Suspense>
     </div>
   );
 }

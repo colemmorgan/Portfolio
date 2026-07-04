@@ -10,6 +10,7 @@ import vertexShader from '../shaders/vertex.glsl'
 import fragmentShader from '../shaders/fragment.glsl'
 
 const LARGE_SPHERE_RADIUS = 1.5
+const TARGET_BLIND_WIDTH_PX = 90
 
 function hexToVec3(hex: string): THREE.Vector3 {
   const c = new THREE.Color(hex)
@@ -26,7 +27,7 @@ export function Scene() {
   const params = useRef({
     speed: 1.0,
     colorBase: '#00ffbf',
-    colorAccent: '#080d0a',
+    colorAccent: '#090d0a',
     colorMid: '#247525',
     cameraRotationX: 196,
     cameraRotationY: 187,
@@ -42,7 +43,7 @@ export function Scene() {
       time: { value: 0 },
       resolution: { value: new THREE.Vector4() },
       uColorBase:   { value: hexToVec3('#00ffbf') },
-      uColorAccent: { value: hexToVec3('#080d0a') },
+      uColorAccent: { value: hexToVec3('#090d0a') },
       uColorMid:    { value: hexToVec3('#247525') },
     }),
     []
@@ -75,6 +76,7 @@ export function Scene() {
     if (!composer) return
     composer.setSize(size.width, size.height)
     composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    params.current.blindScale = size.width / TARGET_BLIND_WIDTH_PX
   }, [size.width, size.height])
 
 
