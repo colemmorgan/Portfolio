@@ -91,22 +91,22 @@ export default function Experience({ canAnimate = false }: ExperienceProps) {
   }, [canAnimate]);
 
   return (
-    <section id="experience" className="border-border-default border-b border-dashed scroll-mt-14">
+    <section id="experience" className="border-border-default-dark border-b border-dashed scroll-mt-14">
       <div className="mx-auto px-6 sm:px-8 py-12 sm:py-16 lg:py-20">
-        <h2 className="text-text-heading mb-1 sm:mb-3 text-3xl sm:text-4xl font-medium">
-          03 Experience
+        <h2 className="text-text-dark-heading mb-1 sm:mb-3 text-3xl sm:text-4xl font-medium">
+          Experience
         </h2>
 
         <div ref={containerRef} className=" mt-6 sm:mt-8">
           {/* Header row */}
-          <div className="border-border-default hidden grid-cols-12 gap-8 border-b py-3 sm:grid">
-            <p className="text-text-muted col-span-5 text-xs font-medium tracking-widest uppercase">
+          <div className="border-border-default-dark hidden grid-cols-12 gap-8 border-b py-3 sm:grid">
+            <p className="text-text-dark-muted col-span-5 text-xs font-medium tracking-widest uppercase">
               Role
             </p>
-            <p className="text-text-muted col-span-5 text-xs font-medium tracking-widest uppercase">
+            <p className="text-text-dark-muted col-span-5 text-xs font-medium tracking-widest uppercase">
               Company
             </p>
-            <p className="text-text-muted col-span-2 text-right text-xs font-medium tracking-widest uppercase">
+            <p className="text-text-dark-muted col-span-2 text-right text-xs font-medium tracking-widest uppercase">
               Year
             </p>
           </div>
@@ -129,20 +129,20 @@ export default function Experience({ canAnimate = false }: ExperienceProps) {
                         toggleRow(i);
                       }
                     }}
-                    className="hidden grid-cols-12 gap-8 py-3 transition-[background-color,padding] duration-200 hover:bg-black/2 hover:px-3 cursor-pointer sm:grid"
+                    className="hidden grid-cols-12 gap-8 py-3 transition-[background-color,padding] duration-200 hover:bg-white/5 hover:px-3 cursor-pointer sm:grid"
                   >
                     <div className="col-span-5 overflow-hidden">
-                      <p data-exp-cell className={`text-text-heading text-lg font-medium${canAnimate ? " opacity-0" : ""}`}>
+                      <p data-exp-cell className={`text-text-dark-heading text-lg font-medium${canAnimate ? " opacity-0" : ""}`}>
                         {exp.role}
                       </p>
                     </div>
                     <div className="col-span-5 overflow-hidden">
-                      <p data-exp-cell className={`text-text-body text-lg${canAnimate ? " opacity-0" : ""}`}>
+                      <p data-exp-cell className={`text-text-dark-body text-lg${canAnimate ? " opacity-0" : ""}`}>
                         {exp.company}
                       </p>
                     </div>
                     <div className="col-span-2 overflow-hidden">
-                      <p data-exp-cell className={`text-text-muted text-right text-lg${canAnimate ? " opacity-0" : ""}`}>
+                      <p data-exp-cell className={`text-text-dark-muted text-right text-lg${canAnimate ? " opacity-0" : ""}`}>
                         {exp.year}
                       </p>
                     </div>
@@ -164,16 +164,16 @@ export default function Experience({ canAnimate = false }: ExperienceProps) {
                     className={`cursor-pointer py-3 sm:hidden${canAnimate ? " opacity-0" : ""}`}
                   >
                     <p className="flex items-center justify-between gap-3">
-                      <span className="text-text-heading text-lg font-medium">{exp.role}</span>
+                      <span className="text-text-dark-heading text-lg font-medium">{exp.role}</span>
                       <HugeiconsIcon
                         icon={ChevronDown}
                         size={16}
-                        className={`text-text-muted shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                        className={`text-text-dark-muted shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                       />
                     </p>
-                    <p className="text-text-body mt-2 flex items-center justify-between gap-3 text-sm">
+                    <p className="text-text-dark-body mt-2 flex items-center justify-between gap-3 text-sm">
                       <span>{exp.company}</span>
-                      <span className="text-text-muted text-sm">{exp.year}</span>
+                      <span className="text-text-dark-muted text-sm">{exp.year}</span>
                     </p>
                   </div>
                 </div>
@@ -187,13 +187,13 @@ export default function Experience({ canAnimate = false }: ExperienceProps) {
                       transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="border-border-default max-w-250 border-t pt-4 pb-4 sm:border-t-0 sm:pt-0">
-                        <p className="text-text-body text-xl sm:text-2xl lg:text-3xl font-medium mt-2">{exp.description}</p>
+                      <div className="border-border-default-dark max-w-250 border-t pt-4 pb-4 sm:border-t-0 sm:pt-0">
+                        <p className="text-text-dark-body text-xl sm:text-2xl lg:text-3xl font-medium mt-2">{exp.description}</p>
                         <div className="mt-4 flex flex-wrap gap-2">
                           {exp.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="border-border-default text-text-muted rounded-full border px-3 py-1 text-sm tracking-normal"
+                              className="border-border-default-dark text-text-dark-muted rounded-full border px-3 py-1 text-sm tracking-normal"
                             >
                               {tag}
                             </span>
@@ -206,7 +206,7 @@ export default function Experience({ canAnimate = false }: ExperienceProps) {
 
                 <div
                   data-exp-divider
-                  className={`bg-border-default h-px ${canAnimate ? "w-0" : "w-full"}`}
+                  className={`bg-border-default-dark h-px ${canAnimate ? "w-0" : "w-full"}`}
                 />
               </div>
             );

@@ -21,7 +21,7 @@ function RootLayout() {
       {pathname === "/" && <Preloader />}
       <FixedWebGLBackground />
       <Nav />
-      <main className="relative z-10">
+      <main className="relative">
         <Outlet />
       </main>
     </div>
@@ -90,7 +90,7 @@ export const Route = createRootRoute({
       {
         rel: "icon",
         type: "image/svg+xml",
-        href: "/icons/circle.svg",
+        href: "favicon.svg",
       },
       {
         rel: "canonical",
@@ -106,11 +106,25 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <link
+          rel="preload"
+          href="/montreal/PPNeueMontreal-Medium.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body style={{ backgroundColor: "#00bbfd" }}>
+      <body style={{ backgroundColor: "var(--color-surface-page)" }}>
         {children}
         <TanStackDevtools
           config={{

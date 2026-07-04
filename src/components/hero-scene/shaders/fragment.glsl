@@ -2,6 +2,9 @@ uniform float time;
 uniform float progress;
 uniform sampler2D texture1;
 uniform vec4 resolution;
+uniform vec3 uColorBase;
+uniform vec3 uColorAccent;
+uniform vec3 uColorMid;
 varying vec2 vUv;
 varying vec3 vPosition;
 float PI = 3.141592653589793238;
@@ -51,21 +54,14 @@ mat2 rotate2D(float angle){
 
 void main()	{
 
-	vec3 baseFirst = vec3(0./255., 187./255., 253./255.); //  
-	vec3 accent =  vec3(15./255., 20./255., 27./255.);
-	vec3 baseSecond =  vec3(66./255., 129./255., 219./255.);
-	vec3 baseThird = vec3(240./255., 240./255., 240./255.);
 	float n = noise(vPosition + time * 0.2);
-	// vec3 color1 = vec3(1.,0.,0.);
-	// vec3 color2 = vec3(0.,1.,0.);
-	// vec3 color3 = vec3(0.,0.,1.);
 
 	vec2 baseUV = rotate2D(n)*vPosition.xy*0.1;
 	float basePattern = lines(baseUV, 0.5);
 	float secondPattern = lines(baseUV, 0.1);
 
-	vec3 baseColor = mix(baseSecond,baseFirst,basePattern);
-	vec3 secondBaseColor = mix(baseColor,accent,secondPattern);
+	vec3 baseColor = mix(uColorMid, uColorBase, basePattern);
+	vec3 secondBaseColor = mix(baseColor, uColorAccent, secondPattern);
 
 
 	// vec2 newUV = (vUv - vec2(0.5))*resolution.zw + vec2(0.5);

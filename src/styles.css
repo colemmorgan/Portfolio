@@ -16,30 +16,22 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "PP Neue Montreal";
-  src: url("/montreal/PPNeueMontreal-Bold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
   --font-sans: "PP Neue Montreal", sans-serif;
   /* surfaces */
-  --color-surface-page: #ffffff;
+  --color-surface-page: #0a0d0b;
 
-  --color-surface-action: #00bbfd;
+  --color-surface-action: #00ffbf;
   --color-surface-action-hover: #33caff;
   --color-surface-action-hover-subtle: #d9f5ff;
   /* text/icon */
-  --color-text-heading: #2e3033;
-  --color-text-body: #4a4f54;
-  --color-text-muted: #798286;
-  --color-text-on-action: #2e3033;
-  --color-text-dark-heading: #f1f2f3;
-  --color-text-dark-body: #c9cccf;
-  --color-text-dark-muted: #a9adb2;
+  --color-text-heading: #2f3330;
+  --color-text-body: #4a544f;
+  --color-text-muted: #798682;
+  --color-text-on-action: #2e3330;
+  --color-text-dark-heading: #f1f4f2;
+  --color-text-dark-body: #c9cfcc;
+  --color-text-dark-muted: #a9b2ab;
   /* borders */
   --color-border-default: #e4e6e7;
 
@@ -47,59 +39,36 @@
   --color-border-default-dark: #27292b;
 }
 
-@layer base {
-  body {
-    /* background-color: #fff; */
-    color: var(--color-text-heading);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.005em;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-}
-
-.cta {
-  box-shadow:
-    0 -2px 4px 0 rgba(0, 0, 0, 0.05) inset,
-    0 0 4px 0 #00bbfd inset,
-    0 4px 2px 0 rgba(255, 255, 255, 0.15) inset;
-}
-
-.footer-mask-text {
+body {
+  background-color: var(--color-surface-page);
+  color: var(--color-text-heading);
   font-family: var(--font-sans);
-  font-size: clamp(48px, 11vw, 180px);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  dominant-baseline: text-after-edge;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
 
-/* View Transitions: shared element (image slides work → case study), nav stays fixed */
-@supports (view-transition-name: none) {
-  ::view-transition-group(main-nav) {
-    z-index: 1;
+::selection {
+  background-color: color-mix(in srgb, var(--color-surface-action) 25%, black);
+  color: white;
+}
+
+@keyframes preloader-intro {
+  0% {
+    opacity: 0;
   }
-  ::view-transition-old(main-nav),
-  ::view-transition-new(main-nav) {
-    animation: none;
-    mix-blend-mode: normal;
+  18.75% {
+    opacity: 1;
   }
-  ::view-transition-group(project-fragments),
-  ::view-transition-group(project-satlantis-llc),
-  ::view-transition-group(project-society-of-pc-building),
-  ::view-transition-group(project-coaching-personal-website) {
-    z-index: 0;
+  75% {
+    opacity: 1;
   }
-  ::view-transition-old(project-fragments),
-  ::view-transition-old(project-satlantis-llc),
-  ::view-transition-old(project-society-of-pc-building),
-  ::view-transition-old(project-coaching-personal-website),
-  ::view-transition-new(project-fragments),
-  ::view-transition-new(project-satlantis-llc),
-  ::view-transition-new(project-society-of-pc-building),
-  ::view-transition-new(project-coaching-personal-website) {
-    animation-duration: 0.45s;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  100% {
+    opacity: 0;
   }
+}
+
+.preloader-intro {
+  animation: preloader-intro 1.6s ease 0.4s forwards;
 }

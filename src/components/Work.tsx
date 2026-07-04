@@ -44,19 +44,19 @@ export default function Work({ canAnimate = false }: WorkProps) {
   }, [canAnimate]);
 
   return (
-    <section id="work" className="border-border-default border-b scroll-mt-14">
+    <section id="work" className="border-border-default-dark border-b scroll-mt-14">
       <div className="mx-auto px-6 sm:px-8 py-12 sm:py-16 lg:py-20">
-        <h2 className="mb-1 sm:mb-3 text-3xl sm:text-4xl font-medium">02 Work</h2>
+        <h2 className="mb-1 sm:mb-3 text-3xl sm:text-4xl font-medium text-text-dark-heading">Work</h2>
         <div ref={containerRef}>
           {projects.map((project) => (
             <div
               key={project.slug}
               id={project.slug}
               data-project-item
-              className={`border-border-default grid grid-cols-1 gap-6 xl:gap-8 border-b border-dashed py-6 last:border-b-0 scroll-mt-14 xl:grid-cols-12 ${canAnimate ? "opacity-0" : ""}`}
+              className={`border-border-default-dark grid grid-cols-1 gap-6 xl:gap-8 border-b border-dashed py-6 last:border-b-0 scroll-mt-14 xl:grid-cols-12 ${canAnimate ? "opacity-0" : ""}`}
             >
               <figure
-                className="border-border-default aspect-3/2 overflow-hidden border xl:col-span-6"
+                className="border-border-default-dark aspect-3/2 overflow-hidden border xl:col-span-6"
                 style={{ viewTransitionName: `project-${project.slug}` }}
               >
                 <img
@@ -73,28 +73,28 @@ export default function Work({ canAnimate = false }: WorkProps) {
                     rel="noopener noreferrer"
                     className="group relative inline-block w-fit mb-1"
                   >
-                    <p className="relative z-10 flex cursor-pointer items-center gap-1.5 text-xl font-medium">
+                    <p className="relative z-10 flex cursor-pointer items-center gap-1.5 text-xl font-medium text-text-dark-heading">
                       {project.title} <span className="pr-1.5">↗</span>
                     </p>
-                    <div className="absolute top-0 right-0 bottom-0 -left-1.5 flex flex-col justify-between border border-transparent transition-all duration-200 group-hover:border-black/7 group-hover:bg-black/3">
+                    <div className="absolute top-0 right-0 bottom-0 -left-1.5 flex flex-col justify-between border border-transparent transition-all duration-200 group-hover:border-white/10 group-hover:bg-white/5">
                       <div className="flex justify-between">
                         <div className="">
-                          <span className="bg-text-heading block h-px w-0 -translate-px transition-all duration-200 group-hover:w-2"></span>
-                          <span className="bg-text-heading block h-0 w-px -translate-px transition-all duration-200 group-hover:h-[7px]"></span>
+                          <span className="bg-text-dark-heading block h-px w-0 -translate-px transition-all duration-200 group-hover:w-2"></span>
+                          <span className="bg-text-dark-heading block h-0 w-px -translate-px transition-all duration-200 group-hover:h-[7px]"></span>
                         </div>
                         <div className="flex">
-                          <span className="bg-text-heading block h-px w-0 translate-x-px -translate-y-px transition-all duration-200 group-hover:w-2"></span>
-                          <span className="bg-text-heading block h-0 w-px translate-x-px -translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
+                          <span className="bg-text-dark-heading block h-px w-0 translate-x-px -translate-y-px transition-all duration-200 group-hover:w-2"></span>
+                          <span className="bg-text-dark-heading block h-0 w-px translate-x-px -translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
                         </div>
                       </div>
                       <div className="flex justify-between">
                         <div className="">
-                          <span className="bg-text-heading block h-0 w-px -translate-x-px translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
-                          <span className="bg-text-heading block h-px w-0 -translate-x-px translate-y-px transition-all duration-200 group-hover:w-2"></span>
+                          <span className="bg-text-dark-heading block h-0 w-px -translate-x-px translate-y-px transition-all duration-200 group-hover:h-[7px]"></span>
+                          <span className="bg-text-dark-heading block h-px w-0 -translate-x-px translate-y-px transition-all duration-200 group-hover:w-2"></span>
                         </div>
                         <div className="flex flex-col items-end">
-                          <span className="bg-text-heading block h-0 w-px translate-px transition-all duration-200 group-hover:h-[7px]"></span>
-                          <span className="bg-text-heading block h-px w-0 translate-px transition-all duration-200 group-hover:w-2"></span>
+                          <span className="bg-text-dark-heading block h-0 w-px translate-px transition-all duration-200 group-hover:h-[7px]"></span>
+                          <span className="bg-text-dark-heading block h-px w-0 translate-px transition-all duration-200 group-hover:w-2"></span>
                         </div>
                       </div>
                     </div>
@@ -102,19 +102,19 @@ export default function Work({ canAnimate = false }: WorkProps) {
                 </div>
                 <div className="">
                   <div className="grid grid-cols-6 gap-8">
-                    <p className="text-text-body col-span-6 lg:col-span-4 font-medium">
+                    <p className="text-text-dark-body col-span-6 lg:col-span-4 font-medium">
                       {project.description}
                     </p>
                   </div>
-                  <div className="border-border-default mt-4 grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-8 border-t py-2 font-medium">
-                    <p className="text-text-muted col-span-3">Tech Stack</p>
-                    <p className="text-text-body col-span-3">
+                  <div className="border-border-default-dark mt-4 grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-8 border-t py-2 font-medium">
+                    <p className="text-text-dark-muted col-span-3">Tech Stack</p>
+                    <p className="text-text-dark-body col-span-3">
                       {project.techStack}
                     </p>
                   </div>
-                  <div className="border-border-default grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-8 border-y py-2 font-medium">
-                    <p className="text-text-muted col-span-3">Hosting</p>
-                    <p className="text-text-body col-span-3">{project.hosting}</p>
+                  <div className="border-border-default-dark grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-8 border-y py-2 font-medium">
+                    <p className="text-text-dark-muted col-span-3">Hosting</p>
+                    <p className="text-text-dark-body col-span-3">{project.hosting}</p>
                   </div>
                 </div>
               </div>

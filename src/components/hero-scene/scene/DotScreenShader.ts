@@ -42,7 +42,7 @@ export const DotScreenShader = {
       vec4 color = texture2D(tDiffuse, vUv);
       vec2 uvrandom = vUv;
       uvrandom.y *= random(vec2(uvrandom.y, 0.4));
-      color.rgb += random(uvrandom) * 0.1;
+      color.rgb += random(uvrandom) * 0.080;
       gl_FragColor = color;
     }
   `,

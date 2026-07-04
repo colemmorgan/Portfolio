@@ -79,25 +79,22 @@ export default function Competencies({
 
   return (
     <div id="competencies" className="grid scroll-mt-14 px-6 sm:px-8 py-12 sm:py-16 lg:py-20">
-      <div className="border-border-default grid grid-cols-1 gap-4 border-b border-dashed pb-6 md:pb-12 md:grid-cols-12">
-        <p className="text-text-muted md:col-span-3 tracking-normal">
+      <div className="border-border-default-dark grid grid-cols-1 gap-4 border-b border-dashed pb-6 md:pb-12 md:grid-cols-12">
+        <p className="text-text-dark-muted md:col-span-3 tracking-normal">
           Competencies
         </p>
         <SplitFadeUp
           as="h3"
-          className="max-w-full text-3xl font-medium md:col-span-6 md:max-w-152.5 md:text-4xl"
+          className="text-text-dark-heading max-w-full text-3xl font-medium md:col-span-6 md:max-w-152.5 md:text-4xl"
           trigger="inView"
           initialDelay={0.2}
         >
           Engineer with a background in fullstack dev capable of delivering
           projects from idea to finished product.
         </SplitFadeUp>
-        <div className="hidden justify-end lg:col-span-3 lg:flex">
-          <img src="/03.svg" alt="" className="h-20 lg:h-[100px]" />
-        </div>
       </div>
       <div className="grid grid-cols-1 gap-8 pt-6 md:pt-12 md:grid-cols-12">
-        <p className="text-text-body hidden max-w-96 text-lg leading-[1.375em] font-medium md:col-span-6 md:block">
+        <p className="text-text-dark-body hidden max-w-96 text-lg leading-[1.375em] font-medium md:col-span-6 md:block">
           A breakdown of the languages, frameworks, and tools I reach for
           across the stack, from interface to infrastructure.
         </p>
@@ -116,13 +113,13 @@ export default function Competencies({
                   type="button"
                   onClick={() => setOpenId(isOpen ? null : item.id)}
                   aria-expanded={isOpen}
-                  className="border-border-default flex w-full items-center justify-between border-b py-4 text-left transition-[background-color,padding] duration-200 hover:bg-black/2 hover:px-2 md:py-5"
+                  className="border-border-default-dark flex w-full items-center justify-between border-b py-4 text-left transition-[background-color,padding] duration-200 hover:bg-white/5 hover:px-2 md:py-5"
                 >
-                  <span className="text-2xl font-medium tracking-[-0.01em] md:text-3xl">
+                  <span className="text-text-dark-heading text-2xl font-medium tracking-[-0.01em] md:text-3xl">
                     {item.title}
                   </span>
                   <span
-                    className={`text-text-muted text-3xl font-light transition-transform duration-200 md:text-4xl ${isOpen ? "rotate-45" : ""}`}
+                    className={`text-text-dark-muted text-3xl font-light transition-transform duration-200 md:text-4xl ${isOpen ? "rotate-45" : ""}`}
                   >
                     +
                   </span>
@@ -138,14 +135,14 @@ export default function Competencies({
                       className="overflow-hidden"
                     >
                       <div className="max-w-137.5 py-5 md:py-6">
-                        <p className="text-text-body text-lg leading-[1.375em] font-medium md:text-xl">
+                        <p className="text-text-dark-body text-lg leading-[1.375em] font-medium md:text-xl">
                           {item.description}
                         </p>
                         <div className="mt-4 flex flex-wrap gap-2">
                           {tags.map((tag) => (
                             <span
                               key={tag}
-                              className="border-border-default text-text-muted rounded-full border px-3 py-1 text-xs"
+                              className="border-border-default-dark text-text-dark-muted rounded-full border px-3 py-1 text-xs"
                             >
                               {tag}
                             </span>

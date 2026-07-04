@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { motion } from "motion/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Copy, Menu01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "motion/react";
+import { usePageReady } from "@/hooks/usePageReady";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const EMAIL = "colemmorgann@gmail.com";
 const RESUME_URL = "/ColeMorgan_Resume.pdf";
@@ -25,35 +30,44 @@ function isExternalLink(href: string) {
   return href.startsWith("http") || href.endsWith(".pdf");
 }
 
+const MENU_TILE_TARGET_PX = 100;
+const MENU_TILE_DURATION = 0.09;
+const MENU_BASE_DELAY = 0.03;
+// Total sweep time across all tiles — quicker than the page preloader's reveal.
+const MENU_TOTAL_STAGGER_SPAN = 0.25;
+// Content fades in only once the tile background has mostly formed.
+const MENU_CONTENT_IN_DELAY = MENU_BASE_DELAY + MENU_TOTAL_STAGGER_SPAN * 0.7;
+const MENU_CONTENT_IN_DURATION = 0.2;
+const MENU_CONTENT_OUT_DURATION = 0.08;
+
 export default function Nav() {
   const [copied, setCopied] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const [menuCols, setMenuCols] = useState(8);
+  const [menuRows, setMenuRows] = useState(14);
+  const pageReady = usePageReady();
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
 
-  const handleCopyEmail = async () => {
-    await navigator.clipboard.writeText(EMAIL);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const menuOverlayRef = useRef<HTMLDivElement>(null);
+  const menuContentRef = useRef<HTMLDivElement>(null);
+  const menuTweensRef = useRef<gsap.core.Tween[]>([]);
+  const menuContentTweenRef = useRef<gsap.core.Tween | null>(null);
+  const menuMountedRef = useRef(false);
 
-  const handleSectionLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    const hashIndex = href.indexOf("#");
-    if (hashIndex === -1) return;
+  useEffect(() => {
+    if (!document.getElementById("hero-heading")) return;
 
-    e.preventDefault();
-    const id = href.slice(hashIndex + 1);
-
-    document.body.style.overflow = "";
-
-    if (id) {
-      document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
-    } else {
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
-
-    setMenuOpen(false);
-  };
+    const trigger = ScrollTrigger.create({
+      trigger: "#hero-heading",
+      start: "top top",
+      onEnter: () => setScrolled(true),
+      onLeaveBack: () => setScrolled(false),
+    });
+    return () => trigger.kill();
+  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -66,189 +80,275 @@ export default function Nav() {
     };
   }, [menuOpen]);
 
+  useLayoutEffect(() => {
+    setMenuCols(
+      Math.max(1, Math.round(window.innerWidth / MENU_TILE_TARGET_PX)),
+    );
+    setMenuRows(
+      Math.max(1, Math.round(window.innerHeight / MENU_TILE_TARGET_PX)),
+    );
+  }, []);
+
   useEffect(() => {
-    if (pathname !== "/") {
-      setIsDarkMode(false);
+    const overlay = menuOverlayRef.current;
+    if (!overlay) return;
+
+    if (!menuMountedRef.current) {
+      menuMountedRef.current = true;
       return;
     }
 
-    const updateNavTheme = () => {
-      const trigger = document.querySelector<HTMLElement>(
-        '[data-nav-dark-trigger="true"]',
-      );
-      if (!trigger) {
-        setIsDarkMode(false);
-        return;
+    menuTweensRef.current.forEach((t) => t.kill());
+    menuTweensRef.current = [];
+
+    const tiles = Array.from(
+      overlay.querySelectorAll<HTMLDivElement>(".nav-menu-tile"),
+    );
+    const shuffled = [...tiles].sort(() => Math.random() - 0.5);
+    const stagger =
+      tiles.length > 1 ? MENU_TOTAL_STAGGER_SPAN / (tiles.length - 1) : 0;
+
+    const content = menuContentRef.current;
+    menuContentTweenRef.current?.kill();
+
+    if (menuOpen) {
+      overlay.style.visibility = "visible";
+      overlay.style.pointerEvents = "auto";
+      tiles.forEach((tile) => {
+        tile.style.opacity = "0";
+      });
+
+      shuffled.forEach((tile, i) => {
+        menuTweensRef.current.push(
+          gsap.to(tile, {
+            opacity: 1,
+            duration: MENU_TILE_DURATION,
+            ease: "power2.out",
+            delay: MENU_BASE_DELAY + i * stagger,
+          }),
+        );
+      });
+
+      if (content) {
+        content.style.opacity = "0";
+        menuContentTweenRef.current = gsap.to(content, {
+          opacity: 1,
+          duration: MENU_CONTENT_IN_DURATION,
+          ease: "power2.out",
+          delay: MENU_CONTENT_IN_DELAY,
+        });
+      }
+    } else {
+      if (content) {
+        menuContentTweenRef.current = gsap.to(content, {
+          opacity: 0,
+          duration: MENU_CONTENT_OUT_DURATION,
+          ease: "power1.in",
+        });
       }
 
-      setIsDarkMode(trigger.getBoundingClientRect().top <= 0);
-    };
+      shuffled.forEach((tile, i) => {
+        menuTweensRef.current.push(
+          gsap.to(tile, {
+            opacity: 0,
+            duration: MENU_TILE_DURATION,
+            ease: "power2.in",
+            delay: MENU_BASE_DELAY + i * stagger,
+          }),
+        );
+      });
 
-    updateNavTheme();
-    window.addEventListener("scroll", updateNavTheme, { passive: true });
-    window.addEventListener("resize", updateNavTheme);
+      const totalMs =
+        (MENU_BASE_DELAY +
+          MENU_TOTAL_STAGGER_SPAN +
+          MENU_TILE_DURATION +
+          0.05) *
+        1000;
+      const hideTimeout = setTimeout(() => {
+        overlay.style.visibility = "hidden";
+        overlay.style.pointerEvents = "none";
+      }, totalMs);
+      return () => clearTimeout(hideTimeout);
+    }
+  }, [menuOpen]);
 
-    return () => {
-      window.removeEventListener("scroll", updateNavTheme);
-      window.removeEventListener("resize", updateNavTheme);
-    };
-  }, [pathname]);
+  const handleCopyEmail = async () => {
+    await navigator.clipboard.writeText(EMAIL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-  const navSurface = isDarkMode ? "bg-surface-dark" : "bg-surface-page";
-  const navBorder = isDarkMode ? "border-border-default-dark" : "border-border-default";
-  const textHeading = isDarkMode ? "text-text-dark-heading" : "text-text-heading";
-  const textMuted = isDarkMode ? "text-text-dark-muted" : "text-text-muted";
+  const handleSectionLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    const hashIndex = href.indexOf("#");
+    if (hashIndex === -1) return;
+
+    e.preventDefault();
+    const id = href.slice(hashIndex + 1);
+
+    if (id) {
+      document
+        .getElementById(id)
+        ?.scrollIntoView({ behavior: "instant", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    setMenuOpen(false);
+  };
 
   return (
-    <nav
-      className={`${navBorder} ${navSurface} fixed top-0 right-0 left-0 z-50 border-b transition-colors`}
+    <motion.nav
+      initial={{ y: -32, opacity: 0 }}
+      animate={{ y: pageReady ? 0 : -32, opacity: pageReady ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: "easeOut", delay: 0.6 }}
+      className={`pointer-events-none fixed top-0 right-0 left-0 z-50 flex items-center justify-between px-6 py-3.5 font-medium transition-[background-color,border-color] duration-200 sm:px-8 sm:py-3 ${scrolled ? "bg-surface-page border-border-default-dark border-b" : "border-b border-transparent"}`}
       style={{ viewTransitionName: "main-nav" }}
     >
-      <div className="mx-auto flex items-center justify-between px-6 sm:px-8 py-2.5 font-medium">
-        <Link to="/" className="sm:hidden" aria-label="Cole Morgan">
-          <img src="/icons/circle.svg" alt="" className="size-9" />
+      <figure className="pointer-events-auto flex flex-col">
+        <Link
+          to="/"
+          className="text-text-dark-heading leading-5 transition-colors"
+        >
+          Cole Morgan
         </Link>
+        <button
+          type="button"
+          onClick={handleCopyEmail}
+          className="text-text-dark-body hover:text-text-dark-heading mt-0.5 flex w-fit cursor-pointer items-center gap-1 text-xs font-normal tracking-wide transition-colors"
+        >
+          <HugeiconsIcon icon={Copy} size={12} className="shrink-0" />
+          <span className="relative inline-block h-[1em] align-bottom">
+            <span
+              className={`absolute inset-0 transition-all duration-200 ${copied ? "-translate-y-0.5 opacity-0" : "translate-y-0 opacity-100"}`}
+            >
+              {EMAIL}
+            </span>
+            <span
+              className={`absolute inset-0 transition-all duration-200 ${copied ? "translate-y-0 opacity-100" : "translate-y-0.5 opacity-0"}`}
+            >
+              Copied!
+            </span>
+            <span className="sr-only">{copied ? "Copied!" : EMAIL}</span>
+          </span>
+        </button>
+      </figure>
 
-        <figure className="hidden h-9 flex-col sm:flex">
-          <Link to="/" className={`h-5 leading-5 hover:opacity-80 ${textHeading}`}>
-            Cole Morgan
+      <ul className="pointer-events-auto hidden items-center gap-6 text-sm sm:flex">
+        <li>
+          <Link
+            to="/"
+            activeProps={{ className: "text-text-dark-heading" }}
+            inactiveProps={{
+              className:
+                "text-text-dark-body hover:text-text-dark-heading transition-colors",
+            }}
+          >
+            Home
           </Link>
+        </li>
+        <li>
+          <a
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-dark-muted hover:text-text-dark-heading transition-colors"
+          >
+            Resume
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.linkedin.com/in/cole-morgan-/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-dark-muted hover:text-text-dark-heading transition-colors"
+          >
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+
+      <button
+        type="button"
+        onClick={() => setMenuOpen((open) => !open)}
+        aria-expanded={menuOpen}
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        className="border-border-default-dark text-text-dark-heading pointer-events-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border bg-black/20 transition-colors hover:bg-white/10 sm:hidden"
+      >
+        <HugeiconsIcon icon={menuOpen ? Cancel01Icon : Menu01Icon} size={18} />
+      </button>
+
+      <div
+        ref={menuOverlayRef}
+        className="pointer-events-none fixed inset-0 z-100 sm:hidden"
+        style={{ visibility: "hidden" }}
+      >
+        <div ref={menuContentRef} className="relative z-10 h-full">
           <button
             type="button"
-            onClick={handleCopyEmail}
-            className={`${textMuted} ${isDarkMode ? "hover:text-text-dark-heading" : "hover:text-text-heading"} mt-0.5 flex h-3.5 w-fit cursor-pointer items-center gap-1 text-xs leading-3.5 font-normal tracking-wide transition-colors`}
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+            className="text-text-dark-heading float-right mt-4 mr-6 cursor-pointer text-sm font-medium transition-colors"
           >
-            <HugeiconsIcon icon={Copy} size={14} className="shrink-0" />
-            <span className="relative inline-block h-[1em] align-bottom">
-              {/* EMAIL */}
-              <span
-                aria-hidden={copied}
-                className={`absolute inset-0 transition-all duration-200 ${
-                  copied
-                    ? "-translate-y-0.5 opacity-0"
-                    : "translate-y-0 opacity-100"
-                }`}
-              >
-                {EMAIL}
-              </span>
-
-              {/* COPIED */}
-              <span
-                aria-hidden={!copied}
-                className={`absolute inset-0 transition-all duration-200 ${
-                  copied
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-0.5 opacity-0"
-                }`}
-              >
-                Copied!
-              </span>
-
-              {/* screenreader only (optional, but nice) */}
-              <span className="sr-only">{copied ? "Copied!" : EMAIL}</span>
-            </span>
+            Close
           </button>
-        </figure>
 
-        <ul className="flex items-center gap-3 leading-5">
-          <li className="hidden sm:block">
-            <Link
-              to="/"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className={`px-2 py-2 ${isDarkMode ? "hover:text-text-dark-heading" : "hover:text-text-heading"}`}
-              activeProps={{ className: isDarkMode ? "text-text-dark-heading" : "text-text-heading" }}
-              inactiveProps={{ className: isDarkMode ? "text-text-dark-muted" : "text-text-muted" }}
-            >
-              Home
-            </Link>
-          </li>
-          <li className="hidden sm:block">
-            <a
-              href={RESUME_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${textMuted} px-2 py-2 ${isDarkMode ? "hover:text-text-dark-heading" : "hover:text-text-heading"}`}
-            >
-              Resume
-            </a>
-          </li>
-          <li className="hidden sm:block">
-            <a
-              href="https://www.linkedin.com/in/cole-morgan-/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta bg-surface-action group relative block cursor-pointer overflow-hidden rounded-full px-4 py-2"
-            >
-              <p className="text-text-on-action relative z-10"> Contact Me &nbsp; →</p>
-              <div className="bg-surface-action-hover absolute top-1/2 left-1/2 z-0 size-1 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-all duration-200 group-hover:size-36 group-hover:opacity-100"></div>
-            </a>
-          </li>
-          <li className="sm:hidden">
-            <button
-              type="button"
-              onClick={() => setMenuOpen((open) => !open)}
-              aria-expanded={menuOpen}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className={`${textHeading} ${navBorder} flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border p-2 transition-colors hover:bg-black/4`}
-            >
-              <HugeiconsIcon icon={menuOpen ? Cancel01Icon : Menu01Icon} size={18} />
-            </button>
-          </li>
-        </ul>
+          <div className="flex h-full flex-col justify-end gap-8 p-6 pb-10">
+            <ul className="flex flex-col gap-3 text-4xl font-medium">
+              {sectionLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleSectionLinkClick(e, link.href)}
+                    className="text-text-dark-heading block transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="border-border-default-dark flex w-fit flex-col gap-3 border-t pt-6 text-4xl font-medium">
+              {contactLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    target={isExternalLink(link.href) ? "_blank" : undefined}
+                    rel={
+                      isExternalLink(link.href)
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    onClick={() => setMenuOpen(false)}
+                    className="text-text-dark-heading transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div
+          className="pointer-events-none absolute inset-0 z-0 grid"
+          style={{
+            gridTemplateColumns: `repeat(${menuCols}, 1fr)`,
+            gridTemplateRows: `repeat(${menuRows}, 1fr)`,
+          }}
+        >
+          {Array.from({ length: menuCols * menuRows }).map((_, i) => (
+            <div
+              key={i}
+              className="nav-menu-tile"
+              style={{ backgroundColor: "var(--color-surface-page)" }}
+            />
+          ))}
+        </div>
       </div>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15, ease: "easeInOut" }}
-            className="bg-[#009DD6] fixed inset-0 z-100 sm:hidden"
-          >
-            <button
-              type="button"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
-              className="text-text-heading absolute top-4 right-6 cursor-pointer text-sm font-medium transition-colors"
-            >
-              Close
-            </button>
-
-            <div className="flex h-full flex-col justify-end gap-8 p-6 pb-10">
-              <ul className="flex flex-col gap-3 text-4xl font-medium">
-                {sectionLinks.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleSectionLinkClick(e, link.href)}
-                      className="text-white  block transition-colors up"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-
-              <ul className="border-border-default flex w-fit flex-col gap-3 border-t pt-6 text-4xl font-medium">
-                {contactLinks.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      target={isExternalLink(link.href) ? "_blank" : undefined}
-                      rel={isExternalLink(link.href) ? "noopener noreferrer" : undefined}
-                      onClick={() => setMenuOpen(false)}
-                      className="text-white transition-colors"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 }

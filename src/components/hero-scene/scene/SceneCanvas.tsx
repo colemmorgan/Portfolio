@@ -18,7 +18,7 @@ export function SceneCanvas() {
 
   if (!mounted) {
     return (
-      <div className="h-full w-full bg-[#eeeeee]" aria-hidden />
+      <div className="bg-surface-page h-full w-full" aria-hidden />
     );
   }
 
@@ -38,7 +38,7 @@ export function SceneCanvas() {
             far: 1000,
           }}
           onCreated={({ gl }) => {
-            gl.setClearColor(0xeeeeee, 1);
+            gl.setClearColor(0x090d0a, 1);
             gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             gl.outputColorSpace = THREE.SRGBColorSpace;
             window.dispatchEvent(new Event("scene-ready"));
