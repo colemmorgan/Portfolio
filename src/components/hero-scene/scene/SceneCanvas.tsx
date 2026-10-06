@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Scene } from "./Scene";
+// The globe lives on in ./Scene if we want to swap back.
+import { LidarScene } from "./LidarScene";
 import * as THREE from "three";
 /**
  * Client-only wrapper for the R3F canvas.
@@ -18,7 +19,7 @@ export function SceneCanvas() {
 
   if (!mounted) {
     return (
-      <div className="bg-surface-page h-full w-full" aria-hidden />
+      <div className="h-full w-full bg-surface-page" aria-hidden />
     );
   }
 
@@ -32,19 +33,20 @@ export function SceneCanvas() {
             powerPreference: "high-performance",
           }}
           camera={{
-            position: [0, 0, 1.3],
-            fov: 70,
-            near: 0.001,
-            far: 1000,
+            // LidarScene drives the camera every frame; these are just its lens.
+            position: [0, 400, 1250],
+            fov: 35,
+            near: 1,
+            far: 20000,
           }}
           onCreated={({ gl }) => {
-            gl.setClearColor(0x090d0a, 1);
+            gl.setClearColor(0x050606, 1);
             gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             gl.outputColorSpace = THREE.SRGBColorSpace;
             window.dispatchEvent(new Event("scene-ready"));
           }}
         >
-          <Scene />
+          <LidarScene />
         </Canvas>
     </div>
   );

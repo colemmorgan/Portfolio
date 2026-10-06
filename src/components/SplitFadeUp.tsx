@@ -92,9 +92,13 @@ export default function SplitFadeUp({
   };
 
   const lineContent = lines.map((line, i) => (
-    <span key={i} className="block overflow-hidden">
+    // The mask is one line-height tall, which clips descenders at tight
+    // leading. Pad the moving line so the mask grows to cover them, and pull
+    // the next line back up by the same amount so spacing is unchanged. The
+    // padding rides on the moving span, so y: 100% still starts fully hidden.
+    <span key={i} className="-mb-[0.2em] block overflow-hidden">
       <motion.span
-        className="inline-block"
+        className="inline-block pb-[0.2em] align-top"
         initial={{ y: "100%" }}
         animate={shouldAnimate ? { y: "0%" } : { y: "100%" }}
         transition={{

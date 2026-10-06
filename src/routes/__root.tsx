@@ -66,7 +66,7 @@ export const Route = createRootRoute({
       },
       {
         property: "og:image",
-        content: "https://colemorgan.me/project-mockups/wizlite.png",
+        content: "https://colemorgan.me/project-mockups/stitch101.png",
       },
       {
         name: "twitter:card",
@@ -83,7 +83,7 @@ export const Route = createRootRoute({
       },
       {
         name: "twitter:image",
-        content: "https://colemorgan.me/project-mockups/wizlite.png",
+        content: "https://colemorgan.me/project-mockups/stitch101.png",
       },
     ],
     links: [

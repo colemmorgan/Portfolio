@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
 @font-face {
+  font-family: "Tiempos Text";
+  src: url("/tiempos/TestTiemposText-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "PP Neue Montreal";
   src: url("/montreal/PPNeueMontreal-Book.otf") format("opentype");
   font-weight: 400;
@@ -18,10 +26,11 @@
 
 @theme {
   --font-sans: "PP Neue Montreal", sans-serif;
+  --font-serif: "Tiempos Text", Georgia, serif;
   /* surfaces */
-  --color-surface-page: #0a0d0b;
+  --color-surface-page: #090a0b;
 
-  --color-surface-action: #00ffbf;
+  --color-surface-action: #FFEA28;
   --color-surface-action-hover: #33caff;
   --color-surface-action-hover-subtle: #d9f5ff;
   /* text/icon */

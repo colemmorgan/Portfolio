@@ -210,7 +210,7 @@ export default function Nav() {
       <figure className="pointer-events-auto flex flex-col">
         <Link
           to="/"
-          className="text-text-dark-heading leading-5 transition-colors"
+          className="text-text-dark-heading font-serif font-normal leading-5 transition-colors"
         >
           Cole Morgan
         </Link>
@@ -267,6 +267,20 @@ export default function Nav() {
             className="text-text-dark-muted hover:text-text-dark-heading transition-colors"
           >
             LinkedIn
+          </a>
+        </li>
+        <li>
+          <a
+            href={`mailto:${EMAIL}`}
+            className="group bg-surface-action text-text-on-action flex items-center gap-1.5 px-3.5 py-2.5 leading-none transition-[filter] hover:brightness-110"
+          >
+            Connect With Me
+            <span
+              aria-hidden
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            >
+              →
+            </span>
           </a>
         </li>
       </ul>

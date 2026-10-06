@@ -11,7 +11,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: "greatdient",
-    image: "/project-mockups/wizlite.png",
+    image: "/project-mockups/stitch101.png",
     title: "RE Game Asset Viewer",
     liveUrl: "https://stitch101.com",
     description:
