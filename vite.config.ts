@@ -18,7 +18,16 @@ const config = defineConfig({
     tsconfigPaths({ projects: ["./tsconfig.json"] }),
     tailwindcss(),
     tanstackStart(),
-    nitro({ preset: process.env.NITRO_PRESET || "vercel" }),
+    nitro({
+      preset: process.env.NITRO_PRESET || "vercel",
+      routeRules: {
+        // Point clouds carry a content hash in their filename
+        // (scripts/lidar/pack_cloud.py), so a URL's bytes never change.
+        "/lidar/**": {
+          headers: { "cache-control": "public, max-age=31536000, immutable" },
+        },
+      },
+    }),
     viteReact(),
     glsl(),
   ],

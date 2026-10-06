@@ -12,3 +12,7 @@ dist-ssr
 __unconfig*
 todos.json
 .vercel
+
+# Raw point-cloud intermediates (regenerate with scripts/lidar/build_cloud.py).
+# Only the packed .lpc files in public/lidar ship.
+data/lidar/
