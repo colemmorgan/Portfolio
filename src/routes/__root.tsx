@@ -89,8 +89,9 @@ export const Route = createRootRoute({
     links: [
       {
         rel: "icon",
-        type: "image/svg+xml",
-        href: "favicon.svg",
+        type: "image/png",
+        sizes: "128x128",
+        href: "favicon.png",
       },
       {
         rel: "canonical",

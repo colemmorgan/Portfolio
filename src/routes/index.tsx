@@ -47,7 +47,7 @@ function App() {
           >
             <SplitFadeUp
               as="h1"
-              className="text-text-dark-heading font-serif max-w-[1030px] text-pretty text-[34px] leading-[1.1em] font-normal tracking-[-0.01em] sm:text-[44px] sm:leading-[1.22] lg:text-[50px]"
+              className="text-text-dark-heading font-serif max-w-[1030px] text-pretty text-[30px] leading-[1.15em] font-normal tracking-[-0.01em] sm:text-[44px] sm:leading-[1.22] lg:text-[48px]"
               trigger="mount"
               initialDelay={0.7}
             >

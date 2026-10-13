@@ -76,7 +76,7 @@ export function LidarScene() {
     sweepAngle: 0,
     sweepSeconds: 9,
     decay: 14,
-    persist: 0.03,
+    persist: 0.05,
     flash: 0.5,
     flashWidth: 0.003,
     pointSize: 0.7,
