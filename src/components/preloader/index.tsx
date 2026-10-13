@@ -194,12 +194,17 @@ export default function Preloader() {
           zIndex: 3,
         }}
       >
-        <div
+        <img
+          src="/favicon.png"
+          alt=""
+          width={128}
+          height={128}
           style={{
             width: "2rem",
             height: "2rem",
             borderRadius: "9999px",
-            backgroundColor: "var(--color-surface-action)",
+            boxShadow:
+              "0 0 12px 2px color-mix(in srgb, var(--color-surface-action) 45%, transparent)",
           }}
         />
         <span
